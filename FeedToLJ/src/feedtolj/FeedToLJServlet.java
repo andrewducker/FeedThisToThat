@@ -33,6 +33,7 @@ public class FeedToLJServlet extends HttpServlet {
 		PrintWriter writer = resp.getWriter();
 		for(Iterator<Entry> entryIterator = feedData.entries();entryIterator.hasNext();)
 		{
+			//Comment.
 			Entry entry = entryIterator.next();
 			String title = entry.getTitle().getValue();
 			String link = "";
