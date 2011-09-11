@@ -5,12 +5,12 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>FeedToLJ</servlet-name>
-		<servlet-class>feedtolj.FeedToLJServlet</servlet-class>
+		<servlet-name>FeedThisToThat</servlet-name>
+		<servlet-class>feedthistothat.FeedToLJServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>FeedToLJ</servlet-name>
-		<url-pattern>/feedtolj</url-pattern>
+		<servlet-name>FeedThisToThat</servlet-name>
+		<url-pattern>/feedthistothat</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

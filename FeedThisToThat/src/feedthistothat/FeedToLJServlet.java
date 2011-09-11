@@ -31,6 +31,8 @@ public class FeedToLJServlet extends HttpServlet {
 		FeedData feedData = null;
 		feedData = parser.parse(feedContents);
 		PrintWriter writer = resp.getWriter();
+		writer.println("<ul class=\"delicious\">");
+		
 		for(Iterator<Entry> entryIterator = feedData.entries();entryIterator.hasNext();)
 		{
 			Entry entry = entryIterator.next();
@@ -46,12 +48,15 @@ public class FeedToLJServlet extends HttpServlet {
 			{
 				 link =linkIterator.next().getValue();
 			}
-			writer.println("<P><A href=\""+link+"\">" +title+"</A></P>");
+			writer.println("<li><div class=\"delicious-link\"><A href=\""+link+"\">" +title+"</A></div>");
 			if(comment != "")
 			{
-				writer.println("<P>"+comment+"</P>");
+				writer.println("<div class=\"delicious-extended\">"+comment+"</div>");
 			}
+			
+			writer.println("</li>");
 		}
+		writer.println("</ul>");
 		
 //	    WriteToLJ writer = new WriteToLJ();
 //	    writer.Write();
