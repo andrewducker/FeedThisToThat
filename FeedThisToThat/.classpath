@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/ws-commons-util-1.0.2.jar"/>
@@ -15,5 +14,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/xercesSamples.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
