@@ -3,8 +3,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -14,9 +16,11 @@ public class LJWriter {
 
 	private String userName;
 	private String password;
-	public LJWriter(String userName, String password){
+	private TimeZone timeZone;
+	public LJWriter(String userName, String password, String timeZoneID){
 		this.userName = userName;
 		this.password = password;
+		this.timeZone = TimeZone.getTimeZone(timeZoneID);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -42,11 +46,13 @@ public class LJWriter {
 	    login.put("subject", "Test Delicious Bookmarks");
 	    login.put("security","private");
 
-	    login.put("year",2011);
-	    login.put("mon",9);
-	    login.put("day",11);
-	    login.put("hour",21);
-	    login.put("min",57);
+	    Calendar calendar = Calendar.getInstance(timeZone);
+	    
+	    login.put("year",calendar.get(Calendar.YEAR));
+	    login.put("mon",calendar.get(Calendar.MONTH)+1);
+	    login.put("day",calendar.get(Calendar.DAY_OF_MONTH));
+	    login.put("hour",calendar.get(Calendar.HOUR_OF_DAY));
+	    login.put("min",calendar.get(Calendar.MINUTE));
 	    
 	    Object[] params = new Object[]{login};
 		result =  (Map<String, String>) client.execute("LJ.XMLRPC.postevent", params);
