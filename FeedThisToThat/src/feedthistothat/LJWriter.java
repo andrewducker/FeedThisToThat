@@ -35,6 +35,8 @@ public class LJWriter {
 	    String challenge = (String) result.get("challenge");
 	    
 	    String response = MD5Hex(challenge+MD5Hex(password));
+
+	    Calendar calendar = Calendar.getInstance(timeZone);
 	    
 	    HashMap<String,Object> login = new HashMap<String,Object>();
 	    login.put("username", userName);
@@ -43,10 +45,9 @@ public class LJWriter {
 	    login.put("auth_response", response);
 	    
 	    login.put("event", contents);
-	    login.put("subject", "Test Delicious Bookmarks");
+	    login.put("subject", "Interesting Links for "+calendar.get(Calendar.DAY_OF_MONTH)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR));
 	    login.put("security","private");
 
-	    Calendar calendar = Calendar.getInstance(timeZone);
 	    
 	    login.put("year",calendar.get(Calendar.YEAR));
 	    login.put("mon",calendar.get(Calendar.MONTH)+1);
