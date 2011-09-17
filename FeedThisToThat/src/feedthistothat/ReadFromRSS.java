@@ -13,7 +13,7 @@ import uk.org.catnip.eddie.FeedData;
 import uk.org.catnip.eddie.Link;
 import uk.org.catnip.eddie.parser.Parser;
 
-public class ReadFromDelicious {
+public class ReadFromRSS {
 	@SuppressWarnings("unchecked")
 	public static String Read(String userName) throws IOException
 	{
