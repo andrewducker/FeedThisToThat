@@ -19,7 +19,7 @@ public class FeedToLJServlet extends HttpServlet {
 		String livejournalUserName = "andrewducker";
 		String livejournalPassword = "Balisk!";
 		String timeZoneID = "Europe/London";
-		
+		Boolean test = true;
 		TimeZone timeZone = TimeZone.getTimeZone(timeZoneID);
 
 		ILinkSourceReader reader = new DeliciousReader(deliciousUserName);
@@ -34,9 +34,16 @@ public class FeedToLJServlet extends HttpServlet {
 
 			resp.setContentType("text/HTML");
 
-			LJWriter writer = new LJWriter(livejournalUserName, livejournalPassword, timeZone);
-			resp.getWriter().println(
-					"<A href=" + writer.Write(output) + ">Link posted</A>");
+			
+			IWriter writer = null;
+			if(test){
+				writer = new ResponseWriter(resp.getWriter());
+			}
+			else{
+				writer = new LJWriter(livejournalUserName, livejournalPassword, timeZone);
+			}
+				
+			resp.getWriter().println(writer.Write(output));
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

@@ -1,5 +1,4 @@
 package feedthistothat;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,11 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
-public class LJWriter {
+public class LJWriter implements IWriter {
 
 	private String userName;
 	private String password;
@@ -24,7 +22,7 @@ public class LJWriter {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String Write(String contents) throws MalformedURLException, XmlRpcException, NoSuchAlgorithmException{
+	public String Write(String contents)  throws Exception{
 	    XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL("http://www.livejournal.com/interface/xmlrpc"));
 	    XmlRpcClient client = new XmlRpcClient();
@@ -59,7 +57,7 @@ public class LJWriter {
 	    if (result.get("success")=="FAIL"){
 	    	return result.get("errmsg");
 	    }
-	    return result.get("url");
+	    return "<A href=" + result.get("url")+ ">Link posted</A>";
 	}
 	
 	private static String MD5Hex(String s) throws NoSuchAlgorithmException{
