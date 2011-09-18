@@ -17,10 +17,10 @@ public class LJWriter {
 	private String userName;
 	private String password;
 	private TimeZone timeZone;
-	public LJWriter(String userName, String password, String timeZoneID){
+	public LJWriter(String userName, String password, TimeZone timeZone){
 		this.userName = userName;
 		this.password = password;
-		this.timeZone = TimeZone.getTimeZone(timeZoneID);
+		this.timeZone = timeZone;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -48,7 +48,6 @@ public class LJWriter {
 	    login.put("subject", "Interesting Links for "+calendar.get(Calendar.DAY_OF_MONTH)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR));
 	    login.put("security","private");
 
-	    
 	    login.put("year",calendar.get(Calendar.YEAR));
 	    login.put("mon",calendar.get(Calendar.MONTH)+1);
 	    login.put("day",calendar.get(Calendar.DAY_OF_MONTH));
