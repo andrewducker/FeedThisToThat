@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,25 @@ public class TestServlet extends HttpServlet {
             }
             reader.close();
 			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp){
+		try {
+			resp.setContentType("text/plain");
+			for(Enumeration<String> e=req.getParameterNames();e.hasMoreElements();){
+				String parameter = e.nextElement();
+				resp.getWriter().println(parameter +": " + req.getParameter(parameter));
+			}
+			
+			resp.getWriter().println("Success");
+
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
