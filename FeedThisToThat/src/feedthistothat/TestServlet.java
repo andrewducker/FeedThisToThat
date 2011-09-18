@@ -1,32 +1,38 @@
 package feedthistothat;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.Enumeration;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings("serial")
 public class TestServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
 		resp.setContentType("text/plain");
 		
 		try {
-            URL url = new URL("http://feeds.delicious.com/v2/rss/andrewducker?plain");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line;
 
-            while ((line = reader.readLine()) != null) {	
-                resp.getWriter().println(line);
-            }
-            reader.close();
+			DateFormat dateFormat = DateFormat.getInstance();
+			DeliciousReader deliciousReader = new DeliciousReader("andrewducker");
+			List<LinkEntry> links = deliciousReader.Read();
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			TimeZone timeZone = TimeZone.getDefault();
+			
+			links = FilterLinksByDate(links, timeZone);
+			
+			for (LinkEntry linkEntry : links) {
+				resp.getWriter().println(dateFormat.format(linkEntry.PostedDate.getTime()));
+			}
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -45,8 +51,20 @@ public class TestServlet extends HttpServlet {
 
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	private List<LinkEntry> FilterLinksByDate(List<LinkEntry> links, TimeZone timeZone) {
+		Calendar endTime = Calendar.getInstance(timeZone);
+		Calendar startTime = (Calendar) endTime.clone();
+		startTime.add(Calendar.DAY_OF_MONTH, -1);
+
+		List<LinkEntry> filteredList = new Vector<LinkEntry>();
+		for (LinkEntry linkEntry : links) {
+			if (linkEntry.PostedDate.before(endTime) && linkEntry.PostedDate.after(startTime)) {
+				filteredList.add(linkEntry);
+			}
+		}
+		return filteredList;
 	}
 }
