@@ -61,7 +61,7 @@ public class FeedToLJServlet extends HttpServlet {
 			if (testMode) {
 				writer = new ResponseWriter(resp.getWriter());
 			} else {
-				writer = new LJWriter(livejournalUserName, livejournalPassword,
+				writer = new DWWriter(livejournalUserName, livejournalPassword,
 						timeZone);
 			}
 

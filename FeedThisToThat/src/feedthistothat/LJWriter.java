@@ -21,10 +21,13 @@ public class LJWriter implements IWriter {
 		this.timeZone = timeZone;
 	}
 	
+	protected String serverURL = "http://www.livejournal.com/interface/xmlrpc";
+	
+	
 	@SuppressWarnings("unchecked")
 	public String Write(String contents)  throws Exception{
 	    XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-		config.setServerURL(new URL("http://www.livejournal.com/interface/xmlrpc"));
+		config.setServerURL(new URL(serverURL));
 	    XmlRpcClient client = new XmlRpcClient();
 	    client.setConfig(config);
 	    
