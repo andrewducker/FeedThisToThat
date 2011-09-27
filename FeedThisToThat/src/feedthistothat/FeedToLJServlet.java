@@ -2,7 +2,6 @@ package feedthistothat;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.Vector;
@@ -20,38 +19,45 @@ public class FeedToLJServlet extends HttpServlet {
 		String livejournalUserName = "andrewducker";
 		String livejournalPassword = "Balisk!";
 		String timeZoneID = "Europe/London";
+		int timeOfDay = 12;
 		Boolean testMode = true;
 		TimeZone timeZone = TimeZone.getTimeZone(timeZoneID);
 
-		FeedDeliciousToLJ(resp, deliciousUserName, livejournalUserName,
-				livejournalPassword, testMode, timeZone);
+		feedSourceToLJ(resp, deliciousUserName, livejournalUserName,
+				livejournalPassword, testMode,timeOfDay, timeZone);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
-		String deliciousUserName = req.getParameter("DeliciousUserName");
+		String sourceUserName = req.getParameter("SourceUserName");
 		String livejournalUserName = req.getParameter("LJUserName");
 		String livejournalPassword = req.getParameter("LJPassword");
 		Boolean testMode = req.getParameter("TestMode") != null;
-
+		int timeOfDay = Integer.parseInt(req.getParameter("TimeOfDay"));
+		
 		String timeZoneID = "Europe/London";
 		TimeZone timeZone = TimeZone.getTimeZone(timeZoneID);
 
-		FeedDeliciousToLJ(resp, deliciousUserName, livejournalUserName,
-				livejournalPassword, testMode, timeZone);
+		
+		feedSourceToLJ(resp, sourceUserName, livejournalUserName,
+				livejournalPassword, testMode, timeOfDay, timeZone);
 	}
 
-	private void FeedDeliciousToLJ(HttpServletResponse resp,
+	private void feedSourceToLJ(HttpServletResponse resp,
 			String deliciousUserName, String livejournalUserName,
-			String livejournalPassword, Boolean testMode, TimeZone timeZone) {
+			String livejournalPassword, Boolean testMode, int timeOfDay, TimeZone timeZone) {
 		ILinkSourceReader reader = new DeliciousReader(deliciousUserName);
-
+		
 		List<LinkEntry> links;
 		try {
 			links = reader.Read();
 
-			links = FilterLinksByDate(links, timeZone);
+			Calendar endTime = Calendar.getInstance(timeZone);
+
+			endTime.set(Calendar.HOUR_OF_DAY, timeOfDay);
+			
+			links = FilterLinksByDate(links, endTime);
 
 			String output = LinkPostFormatter.Format(links);
 
@@ -72,9 +78,7 @@ public class FeedToLJServlet extends HttpServlet {
 		}
 	}
 
-	private List<LinkEntry> FilterLinksByDate(List<LinkEntry> links,
-			TimeZone timeZone) {
-		Calendar endTime = Calendar.getInstance(timeZone);
+	private List<LinkEntry> FilterLinksByDate(List<LinkEntry> links, Calendar endTime) {
 		Calendar startTime = (Calendar) endTime.clone();
 		startTime.add(Calendar.DAY_OF_MONTH, -1);
 

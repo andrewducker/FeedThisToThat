@@ -1,7 +1,6 @@
 package feedthistothat;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -58,7 +57,11 @@ public class RSSReader implements ILinkSourceReader {
 			}
 			for(Iterator<Category> categoryIterator = entry.categories();categoryIterator.hasNext();)
 			{
-				 linkEntry.Tags.add(categoryIterator.next().getTerm());
+				String tagText = categoryIterator.next().getTerm();
+				String[] tags = tagText.split(" ");
+				for (String tag : tags) {
+					linkEntry.Tags.add(tag);	
+				} 
 			}
 			links.add(linkEntry);
 		}

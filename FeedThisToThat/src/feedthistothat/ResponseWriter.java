@@ -12,6 +12,7 @@ public class ResponseWriter implements IWriter {
 	@Override
 	public String Write(String string) throws Exception {
 		writer.print(string);
+		writer.println("\n");
 		return "Done!";
 	}
 

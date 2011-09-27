@@ -9,6 +9,7 @@ public class LinkPostFormatter {
 		String post = "<ul class=\"delicious\">";
 		
 		for (LinkEntry linkEntry : links) {
+			post+="\n";
 			post += "<li><div class=\"delicious-link\"><A href=\""+linkEntry.URL+"\">" +linkEntry.Title+"</A></div>";
 			if(linkEntry.Description!= null && linkEntry.Description != "")
 			{
