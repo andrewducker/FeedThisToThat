@@ -40,6 +40,17 @@ $br
 Lets count : #foreach($i in [1..5])$i #end
 
 $br
+
+$writers.Writers.size()
+$br
+
+#foreach($writer in $writers.Writers)
+	$writer
+	$br
+#end
+
+
+$br
 $br
 
 Let's play with a hashmap:$br

@@ -11,4 +11,7 @@
 	<static-files>
         <exclude path="/**.vm" />
     </static-files>
+	<static-files>
+        <exclude path="/**.html" />
+    </static-files>
 </appengine-web-app>

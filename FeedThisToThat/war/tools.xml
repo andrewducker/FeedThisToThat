@@ -27,5 +27,6 @@
     <data key="bar">this is bar.</data>
     <toolbox scope="session">
         <tool key="map" class="java.util.HashMap"/>
+        <tool key="writers" class="feedthistothat.WriterFactory"/>
     </toolbox>
 </tools>
