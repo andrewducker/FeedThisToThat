@@ -56,6 +56,7 @@ public class FeedToLJServlet extends HttpServlet {
 			Calendar endTime = Calendar.getInstance(timeZone);
 
 			endTime.set(Calendar.HOUR_OF_DAY, timeOfDay);
+			endTime.set(Calendar.MINUTE, 0);
 			
 			links = FilterLinksByDate(links, endTime);
 
