@@ -15,16 +15,27 @@
   <body>
     <h1>Please enter your details</h1>
 	
+	
 <form name='DeliciousPoster' method='POST' action='./feedthistothat' > 
 <table width='100%' border='0' cellspacing='0' cellpadding='3'> 
 <tr> <td align='left' valign='top'>Source user name </td><td> <input type='text' name='SourceUserName' id='SourceUserName' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>Time Of Day (0-23)</td><td> <input type='text' name='TimeOfDay' id='TimeOfDay' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
-#foreach($writer in $writers.Writers)
-<option>$writer</option>
-#end
+<tr> <td align='left' valign='top'>Links for 24 hours ending on</td><td> <select name='Day' id='Day' />
+#foreach($i in [1..31])<option#if($i == $date.Day) selected#end>$i</option>#end
+</select>
+<select name='Month' id='Month' />
+#foreach($i in [1..12])<option#if($i == $date.Month+1) selected#end>$i</option>#end
+</select>
+<select name='Year' id='Year' />
+#foreach($i in [2010..2030])<option#if($i == $date.Year) selected#end>$i</option>#end
+</select>
+<tr> <td align='left' valign='top'>At</td><td> <select name='TimeOfDay' id='TimeOfDay' />
+#foreach($i in [0..23])<option#if($i == 12) selected#end>$i</option>#end
+</select>
+ </td> </tr>
+<tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
+#foreach($writer in $writers.Writers)<option>$writer</option>#end
 </select></td> </tr>
 <td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
 </table>

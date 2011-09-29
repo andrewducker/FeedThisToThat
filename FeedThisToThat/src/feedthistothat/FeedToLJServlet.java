@@ -33,11 +33,8 @@ public class FeedToLJServlet extends HttpServlet {
 		try {
 			links = reader.Read();
 		
-			Calendar endTime = Calendar.getInstance(timeZone);
-		
-			int timeOfDay = Integer.parseInt(req.getParameter("TimeOfDay"));
-			endTime.set(Calendar.HOUR_OF_DAY, timeOfDay);
-			endTime.set(Calendar.MINUTE, 0);
+			Calendar endTime;
+			endTime = getEndTime(req, timeZone);
 			
 			links = FilterLinksByDate(links, endTime);
 		
@@ -51,6 +48,16 @@ public class FeedToLJServlet extends HttpServlet {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	private Calendar getEndTime(HttpServletRequest req, TimeZone timeZone) {
+		Calendar endTime;
+		endTime = Calendar.getInstance(timeZone);
+
+		int timeOfDay = Integer.parseInt(req.getParameter("TimeOfDay"));
+		endTime.set(Calendar.HOUR_OF_DAY, timeOfDay);
+		endTime.set(Calendar.MINUTE, 0);
+		return endTime;
 	}
 
 
