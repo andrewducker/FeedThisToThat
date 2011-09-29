@@ -18,15 +18,14 @@
 <form name='DeliciousPoster' method='POST' action='./feedthistothat' > 
 <table width='100%' border='0' cellspacing='0' cellpadding='3'> 
 <tr> <td align='left' valign='top'>Source user name </td><td> <input type='text' name='SourceUserName' id='SourceUserName' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='LJUserName' id='LJUserName' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='LJPassword' id='LJPassword' size='30' maxlength='50'/> </td> </tr>
+<tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' size='30' maxlength='50'/> </td> </tr>
+<tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>Time Of Day (0-23)</td><td> <input type='text' name='TimeOfDay' id='TimeOfDay' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
 #foreach($writer in $writers.Writers)
 <option>$writer</option>
 #end
 </select></td> </tr>
-<tr> <td colspan=2 align='left' valign='top'> <input type='checkbox' name='TestMode' id='TestMode' value='true'/>Test mode </td> </tr>
 <td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
 </table>
 </form>
