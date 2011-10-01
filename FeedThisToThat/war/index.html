@@ -14,8 +14,7 @@
 
   <body>
     <h1>Please enter your details</h1>
-	
-	
+
 <form name='DeliciousPoster' method='POST' action='./feedthistothat' > 
 <table width='100%' border='0' cellspacing='0' cellpadding='3'> 
 <tr> <td align='left' valign='top'>Source user name </td><td> <input type='text' name='SourceUserName' id='SourceUserName' size='30' maxlength='50'/> </td> </tr>
@@ -33,10 +32,15 @@
 <tr> <td align='left' valign='top'>At Time (UTC)</td><td> <select name='TimeOfDay' id='TimeOfDay' />
 #foreach($i in [0..23])<option#if($i == 11) selected#end>$i</option>#end
 </select>
- </td></tr>
+</td></tr>
 <tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
-#foreach($writer in $writers.Writers)<option>$writer</option>#end
+#foreach($writer in $data.Writers)<option>$writer</option>#end
 </select></td> </tr>
+<tr> <td align='left' valign='top'>Posting will occur at current time in timezone:</td><td> <select name='TimeZone' id='TimeZone' />
+#foreach($zone in $data.TimeZones)<option#if($zone == "UTC") selected#end>$zone</option>#end
+</select>
+</td></tr>
+
 <td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
 </table>
 </form>

@@ -11,9 +11,7 @@ public class WriterFactory {
 		Test
 	}
 
-	public Writer[] getWriters(){
-		return Writer.values();
-	}
+	
 	
 	public static IWriter GetWriter(HttpServletRequest req, HttpServletResponse resp) throws Exception{
 		String timeZoneID = "Europe/London";
