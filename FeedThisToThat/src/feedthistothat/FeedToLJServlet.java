@@ -45,9 +45,8 @@ public class FeedToLJServlet extends HttpServlet {
 	}
 
 	private Calendar getEndTime(HttpServletRequest req) {
-		Calendar endTime;
 		TimeZone timeZone = TimeZone.getTimeZone("UTC");
-		endTime = Calendar.getInstance(timeZone);
+		Calendar endTime = Calendar.getInstance(timeZone);
 
 		int timeOfDay = Integer.parseInt(req.getParameter("TimeOfDay"));
 		int day = Integer.parseInt(req.getParameter("Day"));

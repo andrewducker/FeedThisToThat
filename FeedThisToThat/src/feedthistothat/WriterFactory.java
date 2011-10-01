@@ -14,8 +14,7 @@ public class WriterFactory {
 	
 	
 	public static IWriter GetWriter(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		String timeZoneID = "Europe/London";
-		TimeZone timeZone = TimeZone.getTimeZone(timeZoneID);
+		TimeZone timeZone = TimeZone.getTimeZone(req.getParameter("TimeZone"));
 
 		String destinationUserName = req.getParameter("DestinationUserName");
 		String destinationPassword = req.getParameter("DestinationPassword");
