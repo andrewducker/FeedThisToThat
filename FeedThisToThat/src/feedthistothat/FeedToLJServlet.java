@@ -33,11 +33,13 @@ public class FeedToLJServlet extends HttpServlet {
 			links = FilterLinksByDate(links, endTime);
 		
 			String output = LinkPostFormatter.Format(links);
+			
+			String header = LinkPostFormatter.FormatTitle(endTime);
 		
 			resp.setContentType("text/HTML");
 		
 			IWriter writer = WriterFactory.GetWriter(req, resp);
-			resp.getWriter().println(writer.Write(output));
+			resp.getWriter().println(writer.Write(output, header));
 		
 		} catch (Exception e1) {
 			e1.printStackTrace();

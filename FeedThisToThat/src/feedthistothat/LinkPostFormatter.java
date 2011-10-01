@@ -1,5 +1,6 @@
 package feedthistothat;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class LinkPostFormatter {
@@ -25,6 +26,11 @@ public class LinkPostFormatter {
 		}
 		post += "</ul>";
 		return post;
+	}
+	
+	public static String FormatTitle(Calendar endTime)
+	{
+		return "Interesting Links for "+endTime.get(Calendar.DAY_OF_MONTH)+"-"+(endTime.get(Calendar.MONTH)+1)+"-"+endTime.get(Calendar.YEAR);
 	}
 	
 }

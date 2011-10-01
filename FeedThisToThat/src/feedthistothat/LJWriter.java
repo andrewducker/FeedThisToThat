@@ -25,7 +25,7 @@ public class LJWriter implements IWriter {
 	
 	
 	@SuppressWarnings("unchecked")
-	public String Write(String contents)  throws Exception{
+	public String Write(String contents, String header)  throws Exception{
 	    XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL(serverURL));
 	    XmlRpcClient client = new XmlRpcClient();
@@ -46,7 +46,7 @@ public class LJWriter implements IWriter {
 	    login.put("auth_response", response);
 	    
 	    login.put("event", contents);
-	    login.put("subject", "Interesting Links for "+calendar.get(Calendar.DAY_OF_MONTH)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR));
+	    login.put("subject", header) ;
 	    login.put("security","private");
 
 	    login.put("year",calendar.get(Calendar.YEAR));
