@@ -15,7 +15,10 @@ public class WriterFactory {
 		return Writer.values();
 	}
 	
-	public static IWriter GetWriter(HttpServletRequest req, HttpServletResponse resp, TimeZone timeZone) throws Exception{
+	public static IWriter GetWriter(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+		String timeZoneID = "Europe/London";
+		TimeZone timeZone = TimeZone.getTimeZone(timeZoneID);
+
 		String destinationUserName = req.getParameter("DestinationUserName");
 		String destinationPassword = req.getParameter("DestinationPassword");
 		String destination = req.getParameter("OutputTo");

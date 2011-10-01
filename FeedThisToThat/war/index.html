@@ -30,17 +30,15 @@
 <select name='Year' id='Year' />
 #foreach($i in [2010..2030])<option#if($i == $date.Year) selected#end>$i</option>#end
 </select>
-<tr> <td align='left' valign='top'>At</td><td> <select name='TimeOfDay' id='TimeOfDay' />
-#foreach($i in [0..23])<option#if($i == 12) selected#end>$i</option>#end
+<tr> <td align='left' valign='top'>At Time (UTC)</td><td> <select name='TimeOfDay' id='TimeOfDay' />
+#foreach($i in [0..23])<option#if($i == 11) selected#end>$i</option>#end
 </select>
- </td> </tr>
+ </td></tr>
 <tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
 #foreach($writer in $writers.Writers)<option>$writer</option>#end
 </select></td> </tr>
 <td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
 </table>
 </form>
-
-
-  </body>
+</body>
 </html>

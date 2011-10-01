@@ -22,19 +22,13 @@ public class FeedToLJServlet extends HttpServlet {
 
 		String sourceUserName = req.getParameter("SourceUserName");
 		
-		String timeZoneID = "Europe/London";
-		TimeZone timeZone = TimeZone.getTimeZone(timeZoneID);
-
-		
 		ILinkSourceReader reader = new DeliciousReader(sourceUserName);
-		
 		
 		List<LinkEntry> links;
 		try {
 			links = reader.Read();
 		
-			Calendar endTime;
-			endTime = getEndTime(req, timeZone);
+			Calendar endTime = getEndTime(req);
 			
 			links = FilterLinksByDate(links, endTime);
 		
@@ -42,7 +36,7 @@ public class FeedToLJServlet extends HttpServlet {
 		
 			resp.setContentType("text/HTML");
 		
-			IWriter writer = WriterFactory.GetWriter(req, resp, timeZone);
+			IWriter writer = WriterFactory.GetWriter(req, resp);
 			resp.getWriter().println(writer.Write(output));
 		
 		} catch (Exception e1) {
@@ -50,16 +44,23 @@ public class FeedToLJServlet extends HttpServlet {
 		}
 	}
 
-	private Calendar getEndTime(HttpServletRequest req, TimeZone timeZone) {
+	private Calendar getEndTime(HttpServletRequest req) {
 		Calendar endTime;
+		TimeZone timeZone = TimeZone.getTimeZone("UTC");
 		endTime = Calendar.getInstance(timeZone);
 
 		int timeOfDay = Integer.parseInt(req.getParameter("TimeOfDay"));
+		int day = Integer.parseInt(req.getParameter("Day"));
+		int month = Integer.parseInt(req.getParameter("Month"))-1;
+		int year = Integer.parseInt(req.getParameter("Year"));
 		endTime.set(Calendar.HOUR_OF_DAY, timeOfDay);
 		endTime.set(Calendar.MINUTE, 0);
+		endTime.set(Calendar.SECOND,0);
+		endTime.set(Calendar.DATE, day);
+		endTime.set(Calendar.MONTH, month);
+		endTime.set(Calendar.YEAR, year);
 		return endTime;
 	}
-
 
 	private List<LinkEntry> FilterLinksByDate(List<LinkEntry> links, Calendar endTime) {
 		Calendar startTime = (Calendar) endTime.clone();
