@@ -39,23 +39,23 @@ public class LJWriter implements IWriter {
 
 	    Calendar calendar = Calendar.getInstance(timeZone);
 	    
-	    HashMap<String,Object> login = new HashMap<String,Object>();
-	    login.put("username", userName);
-	    login.put("auth_method", "challenge");
-	    login.put("auth_challenge", challenge);
-	    login.put("auth_response", response);
+	    HashMap<String,Object> postParams = new HashMap<String,Object>();
+	    postParams.put("username", userName);
+	    postParams.put("auth_method", "challenge");
+	    postParams.put("auth_challenge", challenge);
+	    postParams.put("auth_response", response);
 	    
-	    login.put("event", contents);
-	    login.put("subject", header) ;
-	    login.put("security","private");
+	    postParams.put("event", contents);
+	    postParams.put("subject", header) ;
+	    postParams.put("security","private");
 
-	    login.put("year",calendar.get(Calendar.YEAR));
-	    login.put("mon",calendar.get(Calendar.MONTH)+1);
-	    login.put("day",calendar.get(Calendar.DAY_OF_MONTH));
-	    login.put("hour",calendar.get(Calendar.HOUR_OF_DAY));
-	    login.put("min",calendar.get(Calendar.MINUTE));
+	    postParams.put("year",calendar.get(Calendar.YEAR));
+	    postParams.put("mon",calendar.get(Calendar.MONTH)+1);
+	    postParams.put("day",calendar.get(Calendar.DAY_OF_MONTH));
+	    postParams.put("hour",calendar.get(Calendar.HOUR_OF_DAY));
+	    postParams.put("min",calendar.get(Calendar.MINUTE));
 	    
-	    Object[] params = new Object[]{login};
+	    Object[] params = new Object[]{postParams};
 		result =  (Map<String, String>) client.execute("LJ.XMLRPC.postevent", params);
 	    if (result.get("success")=="FAIL"){
 	    	return result.get("errmsg");

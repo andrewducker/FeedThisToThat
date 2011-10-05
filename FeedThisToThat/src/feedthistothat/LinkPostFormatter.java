@@ -18,7 +18,7 @@ public class LinkPostFormatter {
 			}
 			post += "<div class=\"delicious-tags\">(tags:";
 			for (String tag : linkEntry.Tags) {
-				post +=" <a href=\"http://delicious.com/andrewducker/"+tag+"\">"+tag+"</a>";
+				post += tag;
 			}
 			post+= ")</div>";
 			

@@ -55,16 +55,37 @@ public class RSSReader implements ILinkSourceReader {
 			{
 				 linkEntry.URL = linkIterator.next().getValue();
 			}
-			for(Iterator<Category> categoryIterator = entry.categories();categoryIterator.hasNext();)
-			{
-				String tagText = categoryIterator.next().getTerm();
-				String[] tags = tagText.split(" ");
-				for (String tag : tags) {
-					linkEntry.Tags.add(tag);	
-				} 
-			}
+			
+			linkEntry.Tags = GetTagsFromCategories(entry.categories());
+			
 			links.add(linkEntry);
 		}
 		return links;
+	}
+
+	protected Boolean splitTags;
+	
+	private List<String> GetTagsFromCategories(Iterator<Category> categoryIterator) {
+		List<String> Tags = new Vector<String>();
+		while(categoryIterator.hasNext())
+		{
+			String tagText = categoryIterator.next().getTerm();
+			String[] tags;
+			if (splitTags) {
+				tags = tagText.split(" ");
+			}
+			else {
+				tags = new String[1];
+				tags[0] = tagText;
+			}
+			for (String tag : tags) {
+				Tags.add(FormatTag(tag));
+			} 
+		}
+		return Tags;
+	}
+
+	protected String FormatTag(String tag) {
+		return tag;
 	}
 }
