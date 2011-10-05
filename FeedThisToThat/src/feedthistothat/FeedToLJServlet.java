@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import feedthistothat.ReaderFactory.Reader;
+
 @SuppressWarnings("serial")
 public class FeedToLJServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -20,12 +22,11 @@ public class FeedToLJServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
-		String sourceUserName = req.getParameter("SourceUserName");
-		
-		ILinkSourceReader reader = new DeliciousReader(sourceUserName);
-		
 		List<LinkEntry> links;
 		try {
+			String sourceUserName = req.getParameter("SourceUserName");
+			String source = req.getParameter("Source");
+			ILinkSourceReader reader = ReaderFactory.GetReader(Reader.valueOf(source), sourceUserName);
 			links = reader.Read();
 		
 			Calendar endTime = getEndTime(req);
@@ -42,7 +43,7 @@ public class FeedToLJServlet extends HttpServlet {
 			resp.getWriter().println(writer.Write(output, header));
 		
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			e1.printStackTrace(resp.getWriter()); 
 		}
 	}
 

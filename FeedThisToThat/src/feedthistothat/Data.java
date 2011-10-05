@@ -3,6 +3,7 @@ package feedthistothat;
 import java.util.TimeZone;
 import java.util.TreeSet;
 
+import feedthistothat.ReaderFactory.Reader;
 import feedthistothat.WriterFactory.Writer;
 
 public class Data {
@@ -20,6 +21,10 @@ public class Data {
 	
 	public Writer[] getWriters(){
 		return Writer.values();
+	}
+	
+	public Reader[] getReaders(){
+		return Reader.values();
 	}
 
 

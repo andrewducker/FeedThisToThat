@@ -17,6 +17,9 @@
 
 <form name='DeliciousPoster' method='POST' action='./feedthistothat' > 
 <table width='100%' border='0' cellspacing='0' cellpadding='3'> 
+<tr> <td align='left' valign='top'>Source</td><td> <select name='Source' id='Source' />
+#foreach($reader in $data.Readers)<option>$reader</option>#end
+</select></td> </tr>
 <tr> <td align='left' valign='top'>Source user name </td><td> <input type='text' name='SourceUserName' id='SourceUserName' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/> </td> </tr>
