@@ -1,8 +1,6 @@
 package feedthistothat;
 
 import java.util.TimeZone;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class WriterFactory {
 	public enum Writer{
@@ -11,23 +9,22 @@ public class WriterFactory {
 		Test
 	}
 
+	private static IWriter testWriter;
+	public static void setTestWriter(IWriter testWriter){
+		WriterFactory.testWriter = testWriter;
+	}
 	
-	
-	public static IWriter GetWriter(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		TimeZone timeZone = TimeZone.getTimeZone(req.getParameter("TimeZone"));
+	public static IWriter GetWriter(TimeZone timeZone, String destinationUserName,String destinationPassword, Writer writer) throws Exception{
 
-		String destinationUserName = req.getParameter("DestinationUserName");
-		String destinationPassword = req.getParameter("DestinationPassword");
-		String destination = req.getParameter("OutputTo");
-		switch (Writer.valueOf(destination)) {
+		switch (writer) {
 		case Dreamwidth:
 			return new DWWriter(destinationUserName, destinationPassword, timeZone);
 		case Livejournal:
 			return new LJWriter(destinationUserName, destinationPassword, timeZone);
 		case Test:
-			return new ResponseWriter(resp.getWriter());
+			return testWriter;
 		default:
-			throw new Exception("No such destination - " + destination);
+			throw new Exception("No such destination - " + writer);
 		}
 	}
 }
