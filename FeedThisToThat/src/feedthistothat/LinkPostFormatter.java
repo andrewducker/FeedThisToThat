@@ -7,20 +7,20 @@ public class LinkPostFormatter {
 
 	public static String Format(List<LinkEntry> links)
 	{
-		String post = "<ul class=\"delicious\">";
+		String post = "<ul class=\"links\">";
 		
 		for (LinkEntry linkEntry : links) {
 			post+="\n";
-			post += "<li><div class=\"delicious-link\"><A href=\""+linkEntry.URL+"\">" +linkEntry.Title+"</A></div>";
+			post += "<li><A href=\""+linkEntry.URL+"\">" +linkEntry.Title+"</A>";
 			if(linkEntry.Description!= null && linkEntry.Description != "")
 			{
-				post += "<div class=\"delicious-extended\">"+linkEntry.Description+"</div>";
+				post += "<BR>"+linkEntry.Description+"";
 			}
-			post += "<div class=\"delicious-tags\">(tags:";
+			post += "<BR>(tags:";
 			for (String tag : linkEntry.Tags) {
 				post += tag;
 			}
-			post+= ")</div>";
+			post+= ")";
 			
 			post += "</li>";
 		}
