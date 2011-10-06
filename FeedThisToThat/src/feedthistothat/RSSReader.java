@@ -40,12 +40,13 @@ public class RSSReader implements ILinkSourceReader {
 			LinkEntry linkEntry = new LinkEntry();
 			linkEntry.Title = entry.getTitle().getValue();
 			
-			
-
 			Detail commentDetail = entry.getSummary();
+			
 			if(commentDetail != null)
 			{
-				 linkEntry.Description = commentDetail.getValue();
+				if (!commentDetail.getValue().trim().equals("<p></p>")) {
+					 linkEntry.Description = commentDetail.getValue();
+				}
 			}
 			
 			linkEntry.PostedDate = Calendar.getInstance();

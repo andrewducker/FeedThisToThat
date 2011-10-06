@@ -55,6 +55,11 @@ public class LJWriter implements IWriter {
 	    postParams.put("hour",calendar.get(Calendar.HOUR_OF_DAY));
 	    postParams.put("min",calendar.get(Calendar.MINUTE));
 	    
+	    HashMap<String,Object> options = new HashMap<String,Object>();
+	    options.put("taglist", "links");
+	    options.put("opt_preformatted", true);
+	    postParams.put("props",options);
+	    
 	    Object[] params = new Object[]{postParams};
 		result =  (Map<String, String>) client.execute("LJ.XMLRPC.postevent", params);
 	    if (result.get("success")=="FAIL"){
