@@ -1,6 +1,7 @@
-package feedthistothat;
+package feedthistothat.Writers;
 
 import java.io.PrintWriter;
+
 
 public class ResponseWriter implements IWriter {
 

@@ -1,6 +1,7 @@
-package feedthistothat;
+package feedthistothat.Writers;
 
 import java.util.TimeZone;
+
 
 public class WriterFactory {
 	public enum Writer{

@@ -1,12 +1,12 @@
-package feedthistothat;
+package feedthistothat.DataTypes;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
-import feedthistothat.ReaderFactory.Reader;
-import feedthistothat.WriterFactory.Writer;
+import feedthistothat.Readers.ReaderFactory.Reader;
+import feedthistothat.Writers.WriterFactory.Writer;
 
 public class FeedParameters {
 	private String sourceUserName;

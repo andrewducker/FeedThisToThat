@@ -3,6 +3,8 @@ package feedthistothat;
 import java.util.Calendar;
 import java.util.List;
 
+import feedthistothat.DataTypes.LinkEntry;
+
 public class LinkPostFormatter {
 
 	public static String Format(List<LinkEntry> links)

@@ -1,4 +1,4 @@
-package feedthistothat;
+package feedthistothat.Writers;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,6 +9,7 @@ import java.util.TimeZone;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+
 
 public class LJWriter implements IWriter {
 

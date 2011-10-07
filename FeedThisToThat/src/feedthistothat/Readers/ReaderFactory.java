@@ -1,4 +1,5 @@
-package feedthistothat;
+package feedthistothat.Readers;
+
 
 public class ReaderFactory {
 	public enum Reader {

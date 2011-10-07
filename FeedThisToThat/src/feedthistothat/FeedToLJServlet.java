@@ -5,6 +5,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import feedthistothat.DataTypes.FeedParameters;
+import feedthistothat.Writers.ResponseWriter;
+import feedthistothat.Writers.WriterFactory;
+
 @SuppressWarnings("serial")
 public class FeedToLJServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

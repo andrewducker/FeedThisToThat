@@ -8,17 +8,9 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>FeedThisToThat</servlet-name>
 		<servlet-class>feedthistothat.FeedToLJServlet</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>Test</servlet-name>
-		<servlet-class>feedthistothat.TestServlet</servlet-class>
-	</servlet>
 	<servlet-mapping>
 		<servlet-name>FeedThisToThat</servlet-name>
 		<url-pattern>/feedthistothat</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Test</servlet-name>
-		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 		<servlet>
 		 <servlet-name>velocity</servlet-name> 

@@ -1,8 +1,9 @@
-package feedthistothat;
+package feedthistothat.DataTypes;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
+
 
 public class LinkEntry extends FeedEntry {
 

@@ -3,8 +3,8 @@ package feedthistothat;
 import java.util.TimeZone;
 import java.util.TreeSet;
 
-import feedthistothat.ReaderFactory.Reader;
-import feedthistothat.WriterFactory.Writer;
+import feedthistothat.Readers.ReaderFactory.Reader;
+import feedthistothat.Writers.WriterFactory.Writer;
 
 public class Data {
 	private static TreeSet<String> timeZones = new TreeSet<String>();

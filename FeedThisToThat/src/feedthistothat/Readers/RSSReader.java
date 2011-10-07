@@ -1,9 +1,11 @@
-package feedthistothat;
+package feedthistothat.Readers;
 
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+
+import feedthistothat.DataTypes.LinkEntry;
 
 import uk.org.catnip.eddie.Category;
 import uk.org.catnip.eddie.Detail;

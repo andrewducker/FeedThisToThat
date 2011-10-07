@@ -4,6 +4,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
+import feedthistothat.DataTypes.FeedParameters;
+import feedthistothat.DataTypes.LinkEntry;
+import feedthistothat.Readers.ILinkSourceReader;
+import feedthistothat.Readers.ReaderFactory;
+import feedthistothat.Writers.IWriter;
+import feedthistothat.Writers.WriterFactory;
+
 public class Feeder {
 
 	public static String Feed(FeedParameters feedParameters) throws Exception{

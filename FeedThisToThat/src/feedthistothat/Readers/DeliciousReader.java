@@ -1,4 +1,5 @@
-package feedthistothat;
+package feedthistothat.Readers;
+
 
 public class DeliciousReader extends RSSReader implements ILinkSourceReader {
 

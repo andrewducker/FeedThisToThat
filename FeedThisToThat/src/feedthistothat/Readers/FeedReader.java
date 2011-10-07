@@ -1,4 +1,4 @@
-package feedthistothat;
+package feedthistothat.Readers;
 
 import java.io.IOException;
 import java.net.URL;
