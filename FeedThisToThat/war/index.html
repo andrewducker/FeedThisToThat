@@ -15,6 +15,12 @@
   <body>
     <h1>Please enter your details</h1>
 
+#if($userdata.loggedIn)
+You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A>
+#else
+<A href="$userdata.loginURL">Log in to save your preferences.</A>
+#end
+<BR><BR>
 <form name='DeliciousPoster' method='POST' action='./feedthistothat' > 
 <table width='100%' border='0' cellspacing='0' cellpadding='3'> 
 <tr> <td align='left' valign='top'>Source</td><td> <select name='Source' id='Source' />

@@ -29,4 +29,7 @@
         <tool key="map" class="java.util.HashMap"/>
         <tool key="data" class="feedthistothat.Data"/>
     </toolbox>
+    <toolbox scope="request">
+        <tool key="userdata" class="feedthistothat.UserData"/>
+    </toolbox>
 </tools>
