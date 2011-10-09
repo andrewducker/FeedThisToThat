@@ -1,6 +1,14 @@
 package feedthistothat;
 
+import javax.persistence.Transient;
+
 import com.google.appengine.api.users.*;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Query;
+
+import feedthistothat.DataTypes.DataAccessObject;
+import feedthistothat.DataTypes.FeedParameters;
 
 
 
@@ -14,8 +22,12 @@ public class UserData {
 			userName = user.getNickname();
 			logoutURL = userService.createLogoutURL("/");
 			loggedIn = true;
+			feedParameters = DataAccessObject.ReadFeedParameters(user.getEmail());
 		} else {
 			loginURL = userService.createLoginURL("/");
+		}
+		if (feedParameters == null) {
+			feedParameters = FeedParameters.getDefault();
 		}
 	}
 	
@@ -23,6 +35,7 @@ public class UserData {
 	private Boolean loggedIn;
 	private String loginURL;
 	private String logoutURL;
+	@Transient private FeedParameters feedParameters;
 
 	public Boolean getLoggedIn() {
 		return loggedIn;
@@ -36,6 +49,10 @@ public class UserData {
 		return userName;
 	}
 
+	public FeedParameters getFeedParameters(){
+		return feedParameters;
+	}
+	
 	public String getLogoutURL() {
 		return logoutURL;
 	}

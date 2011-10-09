@@ -14,7 +14,7 @@ import feedthistothat.Writers.WriterFactory;
 public class Feeder {
 
 	public static String Feed(FeedParameters feedParameters) throws Exception{
-		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getDestinationUserName());
+		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		List<LinkEntry> links = reader.Read();
 		
 		links = FilterLinksByDate(links, feedParameters.getEndTime());

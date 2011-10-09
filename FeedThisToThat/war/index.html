@@ -15,19 +15,22 @@
   <body>
     <h1>Please enter your details</h1>
 
+
+
 #if($userdata.loggedIn)
-You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A>
+You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A><BR><BR>
+$userdata.feedParameters.TimeZone.ID
 #else
-<A href="$userdata.loginURL">Log in to save your preferences.</A>
+<A href="$userdata.loginURL">Log in to retrieve your preferences.</A>
 #end
 <BR><BR>
 <form name='DeliciousPoster' method='POST' action='./feedthistothat' > 
 <table width='100%' border='0' cellspacing='0' cellpadding='3'> 
 <tr> <td align='left' valign='top'>Source</td><td> <select name='Source' id='Source' />
-#foreach($reader in $data.Readers)<option>$reader</option>#end
+#foreach($reader in $data.Readers)<option#if($reader == $userdata.feedParameters.source) selected#end>$reader</option>#end
 </select></td> </tr>
-<tr> <td align='left' valign='top'>Source user name </td><td> <input type='text' name='SourceUserName' id='SourceUserName' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' size='30' maxlength='50'/> </td> </tr>
+<tr> <td align='left' valign='top'>Source user name </td><td> <input type='text' name='SourceUserName' id='SourceUserName' value='$userdata.feedParameters.sourceUserName' size='30' maxlength='50'/> </td> </tr>
+<tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' value='$userdata.feedParameters.destinationUserName' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>Links for 24 hours ending on</td><td> <select name='Day' id='Day' />
 #foreach($i in [1..31])<option#if($i == $date.Day) selected#end>$i</option>#end
@@ -39,14 +42,14 @@ You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click her
 #foreach($i in [2010..2030])<option#if($i == $date.Year) selected#end>$i</option>#end
 </select>
 <tr> <td align='left' valign='top'>At Time (UTC)</td><td> <select name='TimeOfDay' id='TimeOfDay' />
-#foreach($i in [0..23])<option#if($i == 11) selected#end>$i</option>#end
+#foreach($i in [0..23])<option#if($i == $userdata.feedParameters.EndHour) selected#end>$i</option>#end
 </select>
 </td></tr>
 <tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
-#foreach($writer in $data.Writers)<option>$writer</option>#end
+#foreach($writer in $data.Writers)<option#if($writer == $userdata.feedParameters.Destination) selected#end>$writer</option>#end
 </select></td> </tr>
 <tr> <td align='left' valign='top'>Posting will occur at current time in timezone:</td><td> <select name='TimeZone' id='TimeZone' />
-#foreach($zone in $data.TimeZones)<option#if($zone == "UTC") selected#end>$zone</option>#end
+#foreach($zone in $data.TimeZones)<option#if($zone == $userdata.feedParameters.TimeZone.ID) selected#end>$zone</option>#end
 </select>
 </td></tr>
 
