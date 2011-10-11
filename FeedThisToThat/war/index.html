@@ -52,8 +52,8 @@ $userdata.feedParameters.TimeZone.ID
 #foreach($zone in $data.TimeZones)<option#if($zone == $userdata.feedParameters.TimeZone.ID) selected#end>$zone</option>#end
 </select>
 </td></tr>
-
-<td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
+<tr><td align='left' valign='top'>Post privately?</td><td><input type=checkbox name="PostPrivately"#if($userdata.feedParameters.PostPrivately) checked=yes#end></td></tr>
+<tr><td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
 </table>
 </form>
 </body>

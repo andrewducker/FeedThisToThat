@@ -16,10 +16,12 @@ public class LJWriter implements IWriter {
 	private String userName;
 	private String password;
 	private TimeZone timeZone;
-	public LJWriter(String userName, String password, TimeZone timeZone){
+	private Boolean postPrivately;
+	public LJWriter(String userName, String password, TimeZone timeZone, Boolean postPrivately){
 		this.userName = userName;
 		this.password = password;
 		this.timeZone = timeZone;
+		this.postPrivately = postPrivately;
 	}
 	
 	protected String serverURL = "http://www.livejournal.com/interface/xmlrpc";
@@ -48,7 +50,9 @@ public class LJWriter implements IWriter {
 	    
 	    postParams.put("event", contents);
 	    postParams.put("subject", header) ;
-	    postParams.put("security","private");
+	    if (postPrivately) {
+		    postParams.put("security","private");
+		}
 
 	    postParams.put("year",calendar.get(Calendar.YEAR));
 	    postParams.put("mon",calendar.get(Calendar.MONTH)+1);

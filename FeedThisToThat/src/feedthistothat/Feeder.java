@@ -26,7 +26,7 @@ public class Feeder {
 		
 		String header = LinkPostFormatter.FormatTitle(feedParameters.getEndTime());
 	
-		IWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getDestination());
+		IWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getPostPrivately(),feedParameters.getDestination());
 		
 		return writer.Write(output, header);
 	}

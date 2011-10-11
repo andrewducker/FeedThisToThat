@@ -20,6 +20,7 @@ public class FeedParameters {
 	private String destinationPassword;
 	private Writer destination;
 	private String emailAddress;
+	private boolean postPrivately;
 
 	public FeedParameters(){}
 
@@ -32,6 +33,7 @@ public class FeedParameters {
 		destinationUserName = req.getParameter("DestinationUserName");
 		destination = Writer.valueOf(req.getParameter("OutputTo"));
 		destinationPassword = PasswordEncrypt.Encrypt(destination, req.getParameter("DestinationPassword"));
+		postPrivately = req.getParameter("PostPrivately") != null;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -102,5 +104,9 @@ public class FeedParameters {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Boolean getPostPrivately() {
+		return postPrivately;
 	}
 }
