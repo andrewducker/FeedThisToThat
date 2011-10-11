@@ -1,6 +1,7 @@
 package feedthistothat;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,6 +20,9 @@ public class Feeder {
 		
 		links = FilterLinksByDate(links, feedParameters.getEndTime());
 	
+		Collections.sort(links,Collections.reverseOrder());
+		
+		
 		String output = LinkPostFormatter.Format(links);
 		
 		String header = LinkPostFormatter.FormatTitle(feedParameters.getEndTime());

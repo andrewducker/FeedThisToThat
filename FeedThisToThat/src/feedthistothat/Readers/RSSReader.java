@@ -15,7 +15,7 @@ import uk.org.catnip.eddie.Link;
 import uk.org.catnip.eddie.parser.Parser;
 
 public class RSSReader implements ILinkSourceReader {
-
+	
 	protected String feedURL;
 	
 	public RSSReader(String feedURL)
