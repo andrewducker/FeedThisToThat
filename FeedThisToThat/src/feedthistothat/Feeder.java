@@ -20,8 +20,7 @@ public class Feeder {
 		
 		links = FilterLinksByDate(links, feedParameters.getEndTime());
 	
-		Collections.sort(links,Collections.reverseOrder());
-		
+		Collections.sort(links);
 		
 		String output = LinkPostFormatter.Format(links);
 		

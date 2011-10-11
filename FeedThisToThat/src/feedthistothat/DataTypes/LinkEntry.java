@@ -14,7 +14,7 @@ public class LinkEntry extends FeedEntry implements Comparable<LinkEntry> {
 	public Calendar PostedDate;
 	@Override
 	public int compareTo(LinkEntry arg0) {
-		return arg0.PostedDate.compareTo(PostedDate);
+		return PostedDate.compareTo(arg0.PostedDate);
 		
 	}
 }
