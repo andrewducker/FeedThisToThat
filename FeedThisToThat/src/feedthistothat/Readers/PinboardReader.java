@@ -11,8 +11,8 @@ public class PinboardReader extends RSSReader implements ILinkSourceReader {
 	}
 	
 	@Override
-	public String FormatTag(String tag){
-		return "<A href=http://pinboard.in/u:"+userID+"/t:"+tag+"/>"+tag+"</A> ";
-		
+	protected String GetURLForTag(String tag){
+		return "http://pinboard.in/u:"+userID+"/t:"+tag;
 	}
+
 }

@@ -11,8 +11,8 @@ public class DeliciousReader extends RSSReader implements ILinkSourceReader {
 	}
 	
 	@Override
-	protected String FormatTag(String tag) {
-		return " <a href=\"http://delicious.com/"+userName+"/"+tag+"\">"+tag+"</a>";
+	protected String GetURLForTag(String tag){
+		return "http://delicious.com/"+userName+"/"+tag;
 	}
 
 }

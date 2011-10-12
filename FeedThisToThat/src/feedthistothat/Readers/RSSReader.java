@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 import feedthistothat.DataTypes.LinkEntry;
+import feedthistothat.DataTypes.LinkTag;
 
 import uk.org.catnip.eddie.Category;
 import uk.org.catnip.eddie.Detail;
@@ -68,8 +69,8 @@ public class RSSReader implements ILinkSourceReader {
 
 	protected Boolean splitTags;
 	
-	private List<String> GetTagsFromCategories(Iterator<Category> categoryIterator) {
-		List<String> Tags = new Vector<String>();
+	private List<LinkTag> GetTagsFromCategories(Iterator<Category> categoryIterator) {
+		List<LinkTag> Tags = new Vector<LinkTag>();
 		while(categoryIterator.hasNext())
 		{
 			String tagText = categoryIterator.next().getTerm();
@@ -82,13 +83,17 @@ public class RSSReader implements ILinkSourceReader {
 				tags[0] = tagText;
 			}
 			for (String tag : tags) {
-				Tags.add(FormatTag(tag));
+				LinkTag linkTag = new LinkTag();
+				linkTag.Tag = tag;
+				linkTag.TagURL = GetURLForTag(tag);
+				Tags.add(linkTag);
 			} 
 		}
 		return Tags;
 	}
 
-	protected String FormatTag(String tag) {
-		return tag;
+	protected String GetURLForTag(String tag) {
+		return null;
 	}
+
 }
