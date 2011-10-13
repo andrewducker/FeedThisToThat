@@ -3,10 +3,6 @@ package feedthistothat;
 import javax.persistence.Transient;
 
 import com.google.appengine.api.users.*;
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.Query;
-
 import feedthistothat.DataTypes.DataAccessObject;
 import feedthistothat.DataTypes.FeedParameters;
 

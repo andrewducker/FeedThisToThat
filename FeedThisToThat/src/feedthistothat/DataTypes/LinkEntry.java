@@ -17,4 +17,21 @@ public class LinkEntry extends FeedEntry implements Comparable<LinkEntry> {
 		return PostedDate.compareTo(arg0.PostedDate);
 		
 	}
+	public String getURL() {
+		return URL;
+	}
+	public List<LinkTag> getTags() {
+		return Tags;
+	}
+	public String getTitle() {
+		return Title;
+	}
+	public String getDescription() {
+		return Description;
+	}
+	public Calendar getPostedDate() {
+		return PostedDate;
+	}
+	
+	
 }

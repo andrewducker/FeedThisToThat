@@ -1,40 +1,29 @@
 package feedthistothat;
 
+import java.io.StringWriter;
 import java.util.Calendar;
 import java.util.List;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 
 import feedthistothat.DataTypes.LinkEntry;
 import feedthistothat.DataTypes.LinkTag;
 
 public class LinkPostFormatter {
 
-	public static String Format(List<LinkEntry> links)
+	public static String Format(List<LinkEntry> links) throws Exception
 	{
-		String postTemplate = "<ul class=\"links\">$postContents\n</ul>";
-		String descriptionTemplate ="<BR><span class=\"link-description\">$description</span>"; 
-		String entryTemplate ="\n<li class=\"link\"><A href=\"$url\">$title</A>$descriptionContents$tagContents</li>"; 
-		String tagsTemplate = "<BR><span class=\"link-tags\">(tags:$tags)</span>";
-		String tagTemplate = "<A href=\"$tagUrl\">$tag</A> ";
-
-		String postContents = "";
-		for (LinkEntry linkEntry : links) {
-			String entryContents=entryTemplate.replace("$url", linkEntry.URL).replace("$title", linkEntry.Title);
-			if(linkEntry.Description!= null && linkEntry.Description != "")
-			{
-				entryContents = entryContents.replace("$descriptionContents", descriptionTemplate.replace("$description", linkEntry.Description));
-			}
-			else
-			{
-				entryContents  = entryContents.replace("$descriptionContents","");
-			}
-			String tags = ""; 
-			for (LinkTag tag : linkEntry.Tags) {
-				tags += tagTemplate.replace("$tagUrl", tag.TagURL).replace("$tag", tag.Tag);
-			}
-			entryContents = entryContents.replace("$tagContents", tagsTemplate.replace("$tags", tags));
-			postContents += entryContents;
-		}
-		return postTemplate.replace("$postContents", postContents);
+		Velocity.init();
+		VelocityContext context = new VelocityContext();
+		
+		context.put("links",links);
+		Template template = Velocity.getTemplate("PostTemplate.vm");
+		
+		StringWriter writer = new StringWriter();
+		template.merge(context, writer);
+		return writer.toString();
 	}
 	
 	public static String FormatTitle(Calendar endTime)
