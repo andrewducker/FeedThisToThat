@@ -3,6 +3,7 @@ package feedthistothat;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
@@ -40,11 +41,14 @@ public class FeedToLJServlet extends HttpServlet {
 	        	parameters.setEmailAddress(user.getEmail());
 	        	DataAccessObject.updateFeedParameters(parameters);
 	        } 
-			resp.setContentType("text/HTML");
-			WriterFactory.setTestWriter(new ResponseWriter(resp.getWriter()));
-			String output =  Feeder.Feed(parameters);
-			resp.getWriter().println(output);
-		
+			if (parameters.getPostingTime().before(Calendar.getInstance())) {
+		        resp.setContentType("text/HTML");
+				WriterFactory.setTestWriter(new ResponseWriter(resp.getWriter()));
+				String output =  Feeder.Feed(parameters);
+				resp.getWriter().println(output);
+			}else{
+				resp.getWriter().println("Saved for future posting");
+			}
 		} catch (Exception e1) {
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);

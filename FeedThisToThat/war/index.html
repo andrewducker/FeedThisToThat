@@ -42,7 +42,7 @@ $userdata.feedParameters.TimeZone.ID
 #foreach($i in [2010..2030])<option#if($i == $date.Year) selected#end>$i</option>#end
 </select>
 <tr> <td align='left' valign='top'>At Time (UTC)</td><td> <select name='TimeOfDay' id='TimeOfDay' />
-#foreach($i in [0..23])<option#if($i == $userdata.feedParameters.EndHour) selected#end>$i</option>#end
+#foreach($i in [0..23])<option#if($i == $userdata.feedParameters.PostingHour) selected#end>$i</option>#end
 </select>
 </td></tr>
 <tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />

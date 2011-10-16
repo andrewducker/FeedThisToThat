@@ -18,13 +18,13 @@ public class Feeder {
 		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		List<LinkEntry> links = reader.Read();
 		
-		links = FilterLinksByDate(links, feedParameters.getEndTime());
+		links = FilterLinksByDate(links, feedParameters.getPostingTime());
 	
 		Collections.sort(links);
 		
 		String output = LinkPostFormatter.Format(links);
 		
-		String header = LinkPostFormatter.FormatTitle(feedParameters.getEndTime());
+		String header = LinkPostFormatter.FormatTitle(feedParameters.getPostingTime());
 	
 		IWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getPostPrivately(),feedParameters.getDestination());
 		

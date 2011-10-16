@@ -1,7 +1,12 @@
 package feedthistothat.DataTypes;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Vector;
+
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Query;
 
 public class DataAccessObject {
 	static{
@@ -18,5 +23,13 @@ public class DataAccessObject {
 			feedParameters.setId(existingFeedParameter.getId());
 		}
 		objectify.put(feedParameters);
+	}
+	public static List<FeedParameters> getFeedsForUpdate() {
+		Vector<FeedParameters> outputList = new Vector<FeedParameters>();
+		Query<FeedParameters> query = objectify.query(FeedParameters.class).filter("inPostingQueue", true);//.filter("postingTime <", new Date());
+		for (FeedParameters feedParameters : query) {
+			outputList.add(feedParameters);
+		}
+		return outputList;
 	}
 }
