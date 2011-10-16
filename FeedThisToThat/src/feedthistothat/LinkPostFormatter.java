@@ -9,7 +9,6 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 import feedthistothat.DataTypes.LinkEntry;
-import feedthistothat.DataTypes.LinkTag;
 
 public class LinkPostFormatter {
 

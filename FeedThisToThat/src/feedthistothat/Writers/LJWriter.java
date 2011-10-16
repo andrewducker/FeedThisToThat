@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
@@ -66,7 +67,16 @@ public class LJWriter implements IWriter {
 	    postParams.put("props",options);
 	    
 	    Object[] params = new Object[]{postParams};
+	    try{
 		result =  (Map<String, String>) client.execute("LJ.XMLRPC.postevent", params);
+	    } catch (XmlRpcException e){
+	    	if (e.getMessage().equals("Invalid password")){
+	    		return "Invalid Password";
+	    	} else{
+	    		throw e;
+	    	}
+	    }
+	    
 	    if (result.get("success")=="FAIL"){
 	    	return result.get("errmsg");
 	    }

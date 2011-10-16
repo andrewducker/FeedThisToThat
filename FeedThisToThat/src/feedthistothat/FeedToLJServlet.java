@@ -1,6 +1,10 @@
 package feedthistothat;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +19,10 @@ import feedthistothat.Writers.WriterFactory;
 
 @SuppressWarnings("serial")
 public class FeedToLJServlet extends HttpServlet {
+	
+	private static final Logger log = Logger.getLogger(FeedToLJServlet.class.getName());
+
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 	}
@@ -23,6 +31,7 @@ public class FeedToLJServlet extends HttpServlet {
 			throws IOException {
 		try {
 
+			
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
 			
@@ -37,6 +46,11 @@ public class FeedToLJServlet extends HttpServlet {
 			resp.getWriter().println(output);
 		
 		} catch (Exception e1) {
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e1.printStackTrace(pw);
+			log.severe("Uncaught Exception: "+sw.toString());
+			resp.getWriter().println("Something unexpected has occurred.");
 			e1.printStackTrace(resp.getWriter()); 
 		}
 	}

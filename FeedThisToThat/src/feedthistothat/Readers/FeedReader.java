@@ -19,6 +19,7 @@ public class FeedReader {
 		httpRequest.setHeader(header);
 		
 		URLFetchService fetchService = URLFetchServiceFactory.getURLFetchService();
+		
 		HTTPResponse response = fetchService.fetch(httpRequest);
 		
 		byte[] responseContent = response.getContent();
