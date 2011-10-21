@@ -12,20 +12,25 @@ import feedthistothat.Writers.WriterFactory.Writer;
 
 public class FeedParameters {
 	@Id private Long id;
-	private String sourceUserName;
-	private Reader source;
+	private String sourceUserName = "";
+	private Reader source  = Reader.Delicious;
 	private Date postingTime;
-	private TimeZone timeZone;
-	private String destinationUserName;
-	private String destinationPassword;
-	private Writer destination;
-	private String emailAddress;
-	private boolean postPrivately;
+	private TimeZone timeZone = TimeZone.getTimeZone("Europe/London");
+	private String destinationUserName = "";
+	private String destinationPassword = "";
+	private Writer destination = Writer.Dreamwidth;
+	private String emailAddress = "";
+	private boolean postPrivately = true;
 	private Date lastUpdated;
+	private boolean postWithTags = false;
 	@SuppressWarnings("unused")
-	private boolean inPostingQueue;
+	private boolean inPostingQueue = false;
 
-	public FeedParameters(){}
+	@SuppressWarnings("deprecation")
+	public FeedParameters(){
+		postingTime = new Date();
+		postingTime.setHours(11);
+	}
 
 	public FeedParameters(HttpServletRequest req) throws Exception{
 		sourceUserName = req.getParameter("SourceUserName");
@@ -37,6 +42,7 @@ public class FeedParameters {
 		destination = Writer.valueOf(req.getParameter("OutputTo"));
 		destinationPassword = PasswordEncrypt.Encrypt(destination, req.getParameter("DestinationPassword"));
 		postPrivately = req.getParameter("PostPrivately") != null;
+		postWithTags = req.getParameter("PostWithTags") != null;
 		lastUpdated = new Date();
 		setInPostingQueue();
 	}
@@ -45,20 +51,6 @@ public class FeedParameters {
 		inPostingQueue = lastUpdated.before(postingTime);
 	}
 
-	@SuppressWarnings("deprecation")
-	public static FeedParameters getDefault(){
-		FeedParameters toReturn = new FeedParameters();
-		toReturn.sourceUserName="";
-		toReturn.destinationUserName = "";
-		toReturn.source = Reader.Delicious;
-		toReturn.postingTime = new Date();
-		toReturn.postingTime.setHours(11);
-		toReturn.timeZone = TimeZone.getTimeZone("Europe/London");
-		toReturn.destination = Writer.Dreamwidth;
-		toReturn.inPostingQueue = false;
-		return toReturn;
-	}
-	
 	private Date getPostingTime(HttpServletRequest req) {
 		TimeZone timeZone = TimeZone.getTimeZone("UTC");
 		Calendar postingTime = Calendar.getInstance(timeZone);
@@ -127,5 +119,13 @@ public class FeedParameters {
 
 	public Date getLastUpdated() {
 		return lastUpdated;
+	}
+
+	public void setPostWithTags(boolean postWithTags) {
+		this.postWithTags = postWithTags;
+	}
+
+	public boolean getPostWithTags() {
+		return postWithTags;
 	}
 }

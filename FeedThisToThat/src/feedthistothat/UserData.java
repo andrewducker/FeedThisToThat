@@ -23,7 +23,7 @@ public class UserData {
 			loginURL = userService.createLoginURL("/");
 		}
 		if (feedParameters == null) {
-			feedParameters = FeedParameters.getDefault();
+			feedParameters = new FeedParameters();
 		}
 	}
 	

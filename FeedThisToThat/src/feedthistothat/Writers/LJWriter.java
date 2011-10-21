@@ -2,6 +2,7 @@ package feedthistothat.Writers;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -29,7 +30,7 @@ public class LJWriter implements IWriter {
 	
 	
 	@SuppressWarnings("unchecked")
-	public String Write(String contents, String header)  throws Exception{
+	public String Write(String contents, String header, List<String> tags)  throws Exception{
 	    XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL(serverURL));
 	    XmlRpcClient client = new XmlRpcClient();
@@ -62,7 +63,11 @@ public class LJWriter implements IWriter {
 	    postParams.put("min",calendar.get(Calendar.MINUTE));
 	    
 	    HashMap<String,Object> options = new HashMap<String,Object>();
-	    options.put("taglist", "links");
+	    String tagsToUse = "links";
+	    for (String tag : tags) {
+			tagsToUse += "," +tag; 
+		}
+	    options.put("taglist", tagsToUse);
 	    options.put("opt_preformatted", true);
 	    postParams.put("props",options);
 	    

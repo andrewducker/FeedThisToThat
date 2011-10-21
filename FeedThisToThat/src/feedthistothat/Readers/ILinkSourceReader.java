@@ -1,9 +1,7 @@
 package feedthistothat.Readers;
 
-import java.util.List;
-
-import feedthistothat.DataTypes.LinkEntry;
+import feedthistothat.DataTypes.LinkSet;
 
 public interface ILinkSourceReader {
-	public List<LinkEntry> Read() throws Exception;
+	public LinkSet Read() throws Exception;
 }

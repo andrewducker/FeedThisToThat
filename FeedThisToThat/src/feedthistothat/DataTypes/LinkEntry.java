@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 
-public class LinkEntry extends FeedEntry implements Comparable<LinkEntry> {
+public class LinkEntry implements Comparable<LinkEntry> {
 
 	public String URL;
 	public List<LinkTag> Tags = new Vector<LinkTag>();

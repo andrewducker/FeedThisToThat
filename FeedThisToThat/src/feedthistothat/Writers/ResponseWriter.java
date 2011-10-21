@@ -1,6 +1,7 @@
 package feedthistothat.Writers;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 
 public class ResponseWriter implements IWriter {
@@ -11,9 +12,13 @@ public class ResponseWriter implements IWriter {
 		this.writer = writer;
 	}
 	@Override
-	public String Write(String string, String header) throws Exception {
+	public String Write(String string, String header,List<String> tags) throws Exception {
 		writer.println(header);
 		writer.print(string);
+		writer.print("Tags: ");
+		for (String tag : tags) {
+			writer.println(tag);
+		}
 		writer.println("\n");
 		return "Done!";
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 import feedthistothat.DataTypes.LinkEntry;
+import feedthistothat.DataTypes.LinkSet;
 import feedthistothat.DataTypes.LinkTag;
 
 import uk.org.catnip.eddie.Category;
@@ -26,9 +27,9 @@ public class RSSReader implements ILinkSourceReader {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<LinkEntry> Read() throws Exception {
+	public LinkSet Read() throws Exception {
 
-		Vector<LinkEntry> links = new Vector<LinkEntry>();
+		LinkSet links = new LinkSet();
 		
 		byte[] feedContents = FeedReader.Read(feedURL);
 		
