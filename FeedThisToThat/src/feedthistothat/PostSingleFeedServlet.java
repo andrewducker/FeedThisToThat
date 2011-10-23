@@ -8,13 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.googlecode.objectify.Key;
-
 import feedthistothat.DataTypes.DataAccessObject;
-import feedthistothat.DataTypes.FeedParameters;
 
 @SuppressWarnings("serial")
-public class AutomatedFeedServlet extends HttpServlet {
+public class PostSingleFeedServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
 		List<Long> feeds = DataAccessObject.getFeedsForUpdate();
@@ -23,4 +20,5 @@ public class AutomatedFeedServlet extends HttpServlet {
 			writer.println(feedKey);			
 		}
 	}
+
 }

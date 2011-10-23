@@ -3,6 +3,6 @@
   <cron>
     <url>/recache</url>
     <description>Repopulate the cache every 2 minutes</description>
-    <schedule>every hour synchronized</schedule>
+    <schedule>every 1 hours synchronized</schedule>
   </cron>
 </cronentries>

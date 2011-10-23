@@ -31,8 +31,6 @@ public class FeedToLJServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		try {
-
-			
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
 			
