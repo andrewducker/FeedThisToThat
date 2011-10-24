@@ -34,4 +34,8 @@ public class DataAccessObject {
 		}
 		return outputList;
 	}
+	
+	public static FeedParameters GetFeedParameters(long key){
+		return objectify.get(FeedParameters.class,key);
+	}
 }

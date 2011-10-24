@@ -2,9 +2,11 @@ package feedthistothat;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import feedthistothat.DataTypes.DataAccessObject;
 import feedthistothat.DataTypes.FeedParameters;
 import feedthistothat.DataTypes.LinkEntry;
 import feedthistothat.DataTypes.LinkSet;
@@ -36,8 +38,12 @@ public class Feeder {
 		else{
 			tagsForPosting = new Vector<String>();
 		}
+		String result = writer.Write(output, header, tagsForPosting);
 		
-		return writer.Write(output, header, tagsForPosting);
+		feedParameters.setLastUpdated(new Date());
+		DataAccessObject.updateFeedParameters(feedParameters);
+		
+		return result;
 	}
 	
 	private static LinkSet FilterLinksByDate(LinkSet links, Calendar endTime) {

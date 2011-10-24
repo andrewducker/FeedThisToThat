@@ -12,12 +12,20 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Automated</servlet-name>
 		<servlet-class>feedthistothat.AutomatedFeedServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>PostSingleFeed</servlet-name>
+		<servlet-class>feedthistothat.PostSingleFeedServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>FeedThisToThat</servlet-name>
 		<url-pattern>/feedthistothat</url-pattern>
 	</servlet-mapping>
-		<servlet>
-		 <servlet-name>velocity</servlet-name> 
+	<servlet-mapping>
+		<servlet-name>PostSingleFeed</servlet-name>
+		<url-pattern>/postsinglefeed</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>velocity</servlet-name> 
 	 	<servlet-class>org.apache.velocity.tools.view.VelocityViewServlet</servlet-class> 
 	 </servlet> 
 	 <servlet-mapping> 

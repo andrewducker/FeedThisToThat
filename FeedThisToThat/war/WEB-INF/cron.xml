@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
   <cron>
-    <url>/recache</url>
-    <description>Repopulate the cache every 2 minutes</description>
+    <url>/automatedFeed</url>
+    <description>Feed any posts that are in the queue</description>
     <schedule>every 1 hours synchronized</schedule>
   </cron>
 </cronentries>

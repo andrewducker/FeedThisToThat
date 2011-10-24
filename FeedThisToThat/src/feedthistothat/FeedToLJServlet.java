@@ -20,10 +20,10 @@ import feedthistothat.Writers.WriterFactory;
 
 @SuppressWarnings("serial")
 public class FeedToLJServlet extends HttpServlet {
-	
-	private static final Logger log = Logger.getLogger(FeedToLJServlet.class.getName());
 
-	
+	private static final Logger log = Logger.getLogger(FeedToLJServlet.class
+			.getName());
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 	}
@@ -33,27 +33,33 @@ public class FeedToLJServlet extends HttpServlet {
 		try {
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
-			
+
 			FeedParameters parameters = new FeedParameters(req);
-	        if (user != null) {
-	        	parameters.setEmailAddress(user.getEmail());
-	        	DataAccessObject.updateFeedParameters(parameters);
-	        } 
+			if (user != null) {
+				parameters.setEmailAddress(user.getEmail());
+			}
 			if (parameters.getPostingTime().before(Calendar.getInstance())) {
-		        resp.setContentType("text/HTML");
-				WriterFactory.setTestWriter(new ResponseWriter(resp.getWriter()));
-				String output =  Feeder.Feed(parameters);
+				resp.setContentType("text/HTML");
+				WriterFactory
+						.setTestWriter(new ResponseWriter(resp.getWriter()));
+				String output = Feeder.Feed(parameters);
 				resp.getWriter().println(output);
-			}else{
-				resp.getWriter().println("Saved for future posting");
+			} else {
+				if (user != null) {
+					DataAccessObject.updateFeedParameters(parameters);
+					resp.getWriter().println("Saved for future posting");
+				} else {
+					resp.getWriter().println(
+							"Only logged in users can set up future postings.");
+				}
 			}
 		} catch (Exception e1) {
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			e1.printStackTrace(pw);
-			log.severe("Uncaught Exception: "+sw.toString());
+			log.severe("Uncaught Exception: " + sw.toString());
 			resp.getWriter().println("Something unexpected has occurred.");
-			e1.printStackTrace(resp.getWriter()); 
+			e1.printStackTrace(resp.getWriter());
 		}
 	}
 }
