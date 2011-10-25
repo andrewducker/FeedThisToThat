@@ -54,6 +54,7 @@ $userdata.feedParameters.TimeZone.ID
 </td></tr>
 <tr><td align='left' valign='top'>Post privately?</td><td><input type=checkbox name="PostPrivately"#if($userdata.feedParameters.PostPrivately) checked=yes#end></td></tr>
 <tr><td align='left' valign='top'>Use link tags to tag your post?</td><td><input type=checkbox name="PostWithTags"#if($userdata.feedParameters.PostWithTags) checked=yes#end></td></tr>
+#if($userdata.IsAdmin)<tr><td align='left' valign='top'>Force Post to Posting Queue?</td><td><input type=checkbox name="ForcePostInPast"#if($userdata.feedParameters.ForcePostInPast)checked=yes#end></td></tr>#end
 <tr><td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
 </table>
 </form>

@@ -18,6 +18,7 @@ public class UserData {
 			userName = user.getNickname();
 			logoutURL = userService.createLogoutURL("/");
 			loggedIn = true;
+			email = user.getEmail();
 			feedParameters = DataAccessObject.ReadFeedParameters(user.getEmail());
 		} else {
 			loginURL = userService.createLoginURL("/");
@@ -27,6 +28,7 @@ public class UserData {
 		}
 	}
 	
+	private String email;
 	private String userName;
 	private Boolean loggedIn;
 	private String loginURL;
@@ -52,5 +54,10 @@ public class UserData {
 	public String getLogoutURL() {
 		return logoutURL;
 	}
+	
+	public boolean getIsAdmin(){
+		return email != null && email.equalsIgnoreCase("andrew@ducker.org.uk");
+	}
+
 	
 }

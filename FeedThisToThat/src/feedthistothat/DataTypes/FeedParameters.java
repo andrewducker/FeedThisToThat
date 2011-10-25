@@ -25,6 +25,7 @@ public class FeedParameters {
 	private boolean postWithTags = false;
 	@SuppressWarnings("unused")
 	private boolean inPostingQueue = false;
+	private boolean forcePostInPast = false;
 
 	@SuppressWarnings("deprecation")
 	public FeedParameters(){
@@ -32,6 +33,7 @@ public class FeedParameters {
 		postingTime.setHours(11);
 	}
 
+	@SuppressWarnings("deprecation")
 	public FeedParameters(HttpServletRequest req) throws Exception{
 		sourceUserName = req.getParameter("SourceUserName");
 		source = Reader.valueOf(req.getParameter("Source"));
@@ -43,7 +45,9 @@ public class FeedParameters {
 		destinationPassword = PasswordEncrypt.Encrypt(destination, req.getParameter("DestinationPassword"));
 		postPrivately = req.getParameter("PostPrivately") != null;
 		postWithTags = req.getParameter("PostWithTags") != null;
+		forcePostInPast = req.getParameter("ForcePostInPast") != null;
 		lastUpdated = new Date();
+		lastUpdated.setYear(90);
 		setInPostingQueue();
 	}
 	
@@ -128,4 +132,9 @@ public class FeedParameters {
 	public boolean getPostWithTags() {
 		return postWithTags;
 	}
+	
+	public boolean getForcePostInPast() {
+		return forcePostInPast;
+	}
+
 }

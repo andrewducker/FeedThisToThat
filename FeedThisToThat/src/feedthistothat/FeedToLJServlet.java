@@ -38,7 +38,7 @@ public class FeedToLJServlet extends HttpServlet {
 			if (user != null) {
 				parameters.setEmailAddress(user.getEmail());
 			}
-			if (parameters.getPostingTime().before(Calendar.getInstance())) {
+			if (parameters.getPostingTime().before(Calendar.getInstance()) && !parameters.getForcePostInPast()) {
 				resp.setContentType("text/HTML");
 				WriterFactory
 						.setTestWriter(new ResponseWriter(resp.getWriter()));
