@@ -21,7 +21,7 @@ public class Feeder {
 		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		LinkSet links = reader.Read();
 		
-		links = FilterLinksByDate(links, feedParameters.getPostingTime());
+		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());
 	
 		Collections.sort(links);
 		
@@ -46,10 +46,7 @@ public class Feeder {
 		return result;
 	}
 	
-	private static LinkSet FilterLinksByDate(LinkSet links, Calendar endTime) {
-		Calendar startTime = (Calendar) endTime.clone();
-		startTime.add(Calendar.DAY_OF_MONTH, -1);
-
+	private static LinkSet FilterLinksByDate(LinkSet links, Calendar startTime, Calendar endTime) {
 		LinkSet filteredList = new LinkSet();
 		for (LinkEntry linkEntry : links) {
 			if (linkEntry.PostedDate.before(endTime)

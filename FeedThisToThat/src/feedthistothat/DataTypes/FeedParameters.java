@@ -39,7 +39,10 @@ public class FeedParameters {
 		source = Reader.valueOf(req.getParameter("Source"));
 		postingTime = getPostingTime(req);
 		timeZone = TimeZone.getTimeZone(req.getParameter("TimeZone"));
-		
+		Calendar yesterday = Calendar.getInstance();
+		yesterday.setTime(postingTime);
+		yesterday.add(Calendar.DATE, -1);
+		lastUpdated = yesterday.getTime();
 		destinationUserName = req.getParameter("DestinationUserName");
 		destination = Writer.valueOf(req.getParameter("OutputTo"));
 		destinationPassword = PasswordEncrypt.Encrypt(destination, req.getParameter("DestinationPassword"));
@@ -66,6 +69,7 @@ public class FeedParameters {
 		postingTime.set(Calendar.HOUR_OF_DAY, timeOfDay);
 		postingTime.set(Calendar.MINUTE, 0);
 		postingTime.set(Calendar.SECOND,0);
+		postingTime.set(Calendar.MILLISECOND,0);
 		postingTime.set(Calendar.DATE, day);
 		postingTime.set(Calendar.MONTH, month);
 		postingTime.set(Calendar.YEAR, year);
@@ -121,8 +125,10 @@ public class FeedParameters {
 		setInPostingQueue();
 	}
 
-	public Date getLastUpdated() {
-		return lastUpdated;
+	public Calendar getLastUpdated() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		calendar.setTime(lastUpdated);
+		return calendar;
 	}
 
 	public void setPostWithTags(boolean postWithTags) {
