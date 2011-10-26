@@ -49,8 +49,6 @@ public class FeedParameters {
 		postPrivately = req.getParameter("PostPrivately") != null;
 		postWithTags = req.getParameter("PostWithTags") != null;
 		forcePostInPast = req.getParameter("ForcePostInPast") != null;
-		lastUpdated = new Date();
-		lastUpdated.setYear(90);
 		setInPostingQueue();
 	}
 	
