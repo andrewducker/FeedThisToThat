@@ -40,6 +40,12 @@ public class Feeder {
 		String result = writer.Write(output, header, tagsForPosting);
 		
 		feedParameters.setLastUpdated(feedParameters.getPostingTime().getTime());
+
+		if (feedParameters.isRepeats()) {
+			Calendar newPostingTime = feedParameters.getPostingTime();
+			newPostingTime.add(Calendar.DAY_OF_MONTH, feedParameters.getDaysToInclude());
+			feedParameters.setPostingTime(newPostingTime.getTime());
+		}
 		DataAccessObject.updateFeedParameters(feedParameters);
 		
 		return result;

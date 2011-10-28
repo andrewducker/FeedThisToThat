@@ -84,6 +84,10 @@ public class FeedParameters {
 	public Reader getSource() {
 		return source;
 	}
+	public void setPostingTime(Date postingTime) {
+		this.postingTime = postingTime;
+		setInPostingQueue();
+	}
 	public Calendar getPostingTime() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 		calendar.setTime(postingTime);

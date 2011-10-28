@@ -47,7 +47,7 @@ $userdata.feedParameters.TimeZone.ID
 #foreach($i in [1..7])<option#if($i == $userdata.feedParameters.DaysToInclude) selected#end>$i</option>#end
 </select>
 </td></tr>
-
+<tr><td align='left' valign='top'>Schedule repeats?</td><td><input type=checkbox name="Repeats"#if($userdata.feedParameters.Repeats) checked=yes#end></td></tr>
 <tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
 #foreach($writer in $data.Writers)<option#if($writer == $userdata.feedParameters.Destination) selected#end>$writer</option>#end
 </select></td> </tr>
