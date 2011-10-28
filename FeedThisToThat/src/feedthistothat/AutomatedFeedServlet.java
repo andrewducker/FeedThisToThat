@@ -22,7 +22,6 @@ public class AutomatedFeedServlet extends HttpServlet {
 	throws IOException {
 		try{
 			List<Long> feeds = DataAccessObject.getFeedsForUpdate();
-			PrintWriter writer = resp.getWriter();
 			Queue queue = QueueFactory.getDefaultQueue();
 			for (Long feedKey : feeds) {
 				queue.add(withUrl("/postsinglefeed").param("key", feedKey.toString()));			

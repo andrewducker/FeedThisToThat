@@ -6,8 +6,6 @@ import com.google.appengine.api.users.*;
 import feedthistothat.DataTypes.DataAccessObject;
 import feedthistothat.DataTypes.FeedParameters;
 
-
-
 public class UserData {
 
 	public UserData(){
@@ -18,7 +16,7 @@ public class UserData {
 			userName = user.getNickname();
 			logoutURL = userService.createLogoutURL("/");
 			loggedIn = true;
-			email = user.getEmail();
+			isAdmin = userService.isUserAdmin();
 			feedParameters = DataAccessObject.ReadFeedParameters(user.getEmail());
 		} else {
 			loginURL = userService.createLoginURL("/");
@@ -28,11 +26,11 @@ public class UserData {
 		}
 	}
 	
-	private String email;
 	private String userName;
 	private Boolean loggedIn;
 	private String loginURL;
 	private String logoutURL;
+	private boolean isAdmin = false;
 	@Transient private FeedParameters feedParameters;
 
 	public Boolean getLoggedIn() {
@@ -56,7 +54,7 @@ public class UserData {
 	}
 	
 	public boolean getIsAdmin(){
-		return email != null && email.equalsIgnoreCase("andrew@ducker.org.uk");
+		return isAdmin;
 	}
 
 	

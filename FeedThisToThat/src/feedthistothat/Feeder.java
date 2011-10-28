@@ -2,7 +2,6 @@ package feedthistothat;
 
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -40,7 +39,7 @@ public class Feeder {
 		}
 		String result = writer.Write(output, header, tagsForPosting);
 		
-		feedParameters.setLastUpdated(new Date());
+		feedParameters.setLastUpdated(feedParameters.getPostingTime().getTime());
 		DataAccessObject.updateFeedParameters(feedParameters);
 		
 		return result;

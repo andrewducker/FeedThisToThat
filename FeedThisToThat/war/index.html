@@ -15,8 +15,6 @@
   <body>
     <h1>Please enter your details</h1>
 
-
-
 #if($userdata.loggedIn)
 You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A><BR><BR>
 $userdata.feedParameters.TimeZone.ID
@@ -33,18 +31,23 @@ $userdata.feedParameters.TimeZone.ID
 <tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' value='$userdata.feedParameters.destinationUserName' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>Links for 24 hours ending on</td><td> <select name='Day' id='Day' />
-#foreach($i in [1..31])<option#if($i == $date.Day) selected#end>$i</option>#end
+#foreach($i in [1..31])<option#if($i == $date.getDay($userdata.feedParameters.PostingTime.Time)) selected#end>$i</option>#end
 </select>
 <select name='Month' id='Month' />
-#foreach($i in [1..12])<option#if($i == $date.Month+1) selected#end>$i</option>#end
+#foreach($i in [1..12])<option#if($i == $date.getMonth($userdata.feedParameters.PostingTime)+1) selected#end>$i</option>#end
 </select>
 <select name='Year' id='Year' />
-#foreach($i in [2010..2030])<option#if($i == $date.Year) selected#end>$i</option>#end
+#foreach($i in [2010..2030])<option#if($i == $date.getYear($userdata.feedParameters.PostingTime.Time)) selected#end>$i</option>#end
 </select>
 <tr> <td align='left' valign='top'>At Time (UTC)</td><td> <select name='TimeOfDay' id='TimeOfDay' />
 #foreach($i in [0..23])<option#if($i == $userdata.feedParameters.PostingHour) selected#end>$i</option>#end
 </select>
 </td></tr>
+<tr> <td align='left' valign='top'>Number of Days worth of links to include</td><td> <select name='DaysToInclude' id='DaysToInclude' />
+#foreach($i in [1..7])<option#if($i == $userdata.feedParameters.DaysToInclude) selected#end>$i</option>#end
+</select>
+</td></tr>
+
 <tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
 #foreach($writer in $data.Writers)<option#if($writer == $userdata.feedParameters.Destination) selected#end>$writer</option>#end
 </select></td> </tr>

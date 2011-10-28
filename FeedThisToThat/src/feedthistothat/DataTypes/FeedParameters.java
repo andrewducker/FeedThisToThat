@@ -26,6 +26,8 @@ public class FeedParameters {
 	@SuppressWarnings("unused")
 	private boolean inPostingQueue = false;
 	private boolean forcePostInPast = false;
+	private int daysToInclude = 1;
+	private boolean repeats = false;
 
 	@SuppressWarnings("deprecation")
 	public FeedParameters(){
@@ -33,15 +35,15 @@ public class FeedParameters {
 		postingTime.setHours(11);
 	}
 
-	@SuppressWarnings("deprecation")
 	public FeedParameters(HttpServletRequest req) throws Exception{
 		sourceUserName = req.getParameter("SourceUserName");
 		source = Reader.valueOf(req.getParameter("Source"));
 		postingTime = getPostingTime(req);
 		timeZone = TimeZone.getTimeZone(req.getParameter("TimeZone"));
 		Calendar yesterday = Calendar.getInstance();
+		daysToInclude = Integer.parseInt(req.getParameter("DaysToInclude"));
 		yesterday.setTime(postingTime);
-		yesterday.add(Calendar.DATE, -1);
+		yesterday.add(Calendar.DATE, -daysToInclude);
 		lastUpdated = yesterday.getTime();
 		destinationUserName = req.getParameter("DestinationUserName");
 		destination = Writer.valueOf(req.getParameter("OutputTo"));
@@ -49,6 +51,7 @@ public class FeedParameters {
 		postPrivately = req.getParameter("PostPrivately") != null;
 		postWithTags = req.getParameter("PostWithTags") != null;
 		forcePostInPast = req.getParameter("ForcePostInPast") != null;
+		repeats = req.getParameter("Repeats") != null;
 		setInPostingQueue();
 	}
 	
@@ -139,6 +142,21 @@ public class FeedParameters {
 	
 	public boolean getForcePostInPast() {
 		return forcePostInPast;
+	}
+	public int getDaysToInclude() {
+		return daysToInclude;
+	}
+
+	public void setDaysToInclude(int daysToInclude) {
+		this.daysToInclude = daysToInclude;
+	}
+
+	public boolean isRepeats() {
+		return repeats;
+	}
+
+	public void setRepeats(boolean repeats) {
+		this.repeats = repeats;
 	}
 
 }
