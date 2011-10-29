@@ -28,9 +28,7 @@ $userdata.feedParameters.TimeZone.ID
 #foreach($reader in $data.Readers)<option#if($reader == $userdata.feedParameters.source) selected#end>$reader</option>#end
 </select></td> </tr>
 <tr> <td align='left' valign='top'>Source user name </td><td> <input type='text' name='SourceUserName' id='SourceUserName' value='$userdata.feedParameters.sourceUserName' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' value='$userdata.feedParameters.destinationUserName' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/> </td> </tr>
-<tr> <td align='left' valign='top'>Links for 24 hours ending on</td><td> <select name='Day' id='Day' />
+<tr> <td align='left' valign='top'>Links for the period ending on</td><td> <select name='Day' id='Day' />
 #foreach($i in [1..31])<option#if($i == $date.getDay($userdata.feedParameters.PostingTime.Time)) selected#end>$i</option>#end
 </select>
 <select name='Month' id='Month' />
@@ -47,16 +45,18 @@ $userdata.feedParameters.TimeZone.ID
 #foreach($i in [1..7])<option#if($i == $userdata.feedParameters.DaysToInclude) selected#end>$i</option>#end
 </select>
 </td></tr>
-<tr><td align='left' valign='top'>Schedule repeats?</td><td><input type=checkbox name="Repeats"#if($userdata.feedParameters.Repeats) checked=yes#end></td></tr>
 <tr><td align='left' valign='top'>Output to</td><td> <select name='OutputTo' id='OutputTo' />
 #foreach($writer in $data.Writers)<option#if($writer == $userdata.feedParameters.Destination) selected#end>$writer</option>#end
 </select></td> </tr>
+<tr> <td align='left' valign='top'>LJ/DW user name </td><td> <input type='text' name='DestinationUserName' id='DestinationUserName' value='$userdata.feedParameters.destinationUserName' size='30' maxlength='50'/> </td> </tr>
+<tr> <td align='left' valign='top'>LJ/DW password </td><td> <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/> </td> </tr>
 <tr> <td align='left' valign='top'>Posting will occur at current time in timezone:</td><td> <select name='TimeZone' id='TimeZone' />
 #foreach($zone in $data.TimeZones)<option#if($zone == $userdata.feedParameters.TimeZone.ID) selected#end>$zone</option>#end
 </select>
 </td></tr>
 <tr><td align='left' valign='top'>Post privately?</td><td><input type=checkbox name="PostPrivately"#if($userdata.feedParameters.PostPrivately) checked=yes#end></td></tr>
 <tr><td align='left' valign='top'>Use link tags to tag your post?</td><td><input type=checkbox name="PostWithTags"#if($userdata.feedParameters.PostWithTags) checked=yes#end></td></tr>
+<tr><td align='left' valign='top'>Schedule repeats?</td><td><input type=checkbox name="Repeats"#if($userdata.feedParameters.Repeats) checked=yes#end></td></tr>
 #if($userdata.IsAdmin)<tr><td align='left' valign='top'>Force Post to Posting Queue?</td><td><input type=checkbox name="ForcePostInPast"#if($userdata.feedParameters.ForcePostInPast)checked=yes#end></td></tr>#end
 <tr><td colspan=2 align='center'> <input type='submit' name='SubmitButton' id='SubmitButton' value='Submit' />  </td> </tr>
 </table>

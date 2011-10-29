@@ -46,7 +46,9 @@ public class Feeder {
 			newPostingTime.add(Calendar.DAY_OF_MONTH, feedParameters.getDaysToInclude());
 			feedParameters.setPostingTime(newPostingTime.getTime());
 		}
-		DataAccessObject.updateFeedParameters(feedParameters);
+		if (feedParameters.getEmailAddress() != null) {
+			DataAccessObject.updateFeedParameters(feedParameters);
+		}
 		
 		return result;
 	}
