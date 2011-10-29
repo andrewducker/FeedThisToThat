@@ -27,7 +27,7 @@ public class UserData {
 	}
 	
 	private String userName;
-	private Boolean loggedIn;
+	private Boolean loggedIn = false;
 	private String loginURL;
 	private String logoutURL;
 	private boolean isAdmin = false;
