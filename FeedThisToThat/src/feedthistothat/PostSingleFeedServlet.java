@@ -26,12 +26,13 @@ public class PostSingleFeedServlet extends HttpServlet {
 			Feeder.Feed(parameters);
 			resp.getWriter().println("Done");
 		} catch (Exception e) {
-			Logger log = Logger.getLogger(FeedToLJServlet.class
-					.getName());
+			Logger log = Logger.getLogger(FeedToLJServlet.class.getName());
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			e.printStackTrace(pw);
 			log.severe("Uncaught Exception: " + sw.toString());
+			parameters.setResults("An error occurred.  Please let andrew@ducker.org.uk know");
 		}
+		DataAccessObject.updateFeedParameters(parameters);
 	}
 }

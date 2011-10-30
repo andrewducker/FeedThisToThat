@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import feedthistothat.DataTypes.DataAccessObject;
 import feedthistothat.DataTypes.FeedParameters;
 import feedthistothat.DataTypes.LinkEntry;
 import feedthistothat.DataTypes.LinkSet;
@@ -22,6 +21,10 @@ public class Feeder {
 		
 		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());
 	
+		if (links.size() == 0) {
+			return "No entries found";
+		}
+		
 		Collections.sort(links);
 		
 		String output = LinkPostFormatter.Format(links);
@@ -39,6 +42,7 @@ public class Feeder {
 		}
 		String result = writer.Write(output, header, tagsForPosting);
 		
+		feedParameters.setResults(result);
 		feedParameters.setLastUpdated(feedParameters.getPostingTime().getTime());
 
 		if (feedParameters.isRepeats()) {
@@ -46,10 +50,7 @@ public class Feeder {
 			newPostingTime.add(Calendar.DAY_OF_MONTH, feedParameters.getDaysToInclude());
 			feedParameters.setPostingTime(newPostingTime.getTime());
 		}
-		if (feedParameters.getEmailAddress() != null) {
-			DataAccessObject.updateFeedParameters(feedParameters);
-		}
-		
+
 		return result;
 	}
 	

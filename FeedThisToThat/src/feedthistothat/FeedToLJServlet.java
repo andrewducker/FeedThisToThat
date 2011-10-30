@@ -30,11 +30,12 @@ public class FeedToLJServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		FeedParameters parameters = null;
 		try {
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
 
-			FeedParameters parameters = new FeedParameters(req);
+			 parameters = new FeedParameters(req);
 			if (user != null) {
 				parameters.setEmailAddress(user.getEmail());
 			}
@@ -46,7 +47,6 @@ public class FeedToLJServlet extends HttpServlet {
 				resp.getWriter().println(output);
 			} else {
 				if (user != null) {
-					DataAccessObject.updateFeedParameters(parameters);
 					resp.getWriter().println("Saved for future posting");
 				} else {
 					resp.getWriter().println(
@@ -61,5 +61,6 @@ public class FeedToLJServlet extends HttpServlet {
 			resp.getWriter().println("Something unexpected has occurred.");
 			e1.printStackTrace(resp.getWriter());
 		}
+		DataAccessObject.updateFeedParameters(parameters);
 	}
 }

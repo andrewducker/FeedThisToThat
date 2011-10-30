@@ -19,6 +19,9 @@ public class DataAccessObject {
 		return  objectify.query(FeedParameters.class).filter("emailAddress", email).get();
 	}
 	static public void updateFeedParameters(FeedParameters feedParameters){
+		if (feedParameters == null || feedParameters.getEmailAddress() == null) {
+			return;
+		}
 		FeedParameters existingFeedParameter = objectify.query(FeedParameters.class).filter("emailAddress", feedParameters.getEmailAddress()).get();
 		if (existingFeedParameter != null) {
 			feedParameters.setId(existingFeedParameter.getId());

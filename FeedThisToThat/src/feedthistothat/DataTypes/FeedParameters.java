@@ -28,6 +28,7 @@ public class FeedParameters {
 	private boolean forcePostInPast = false;
 	private int daysToInclude = 1;
 	private boolean repeats = false;
+	private String results;
 
 	@SuppressWarnings("deprecation")
 	public FeedParameters(){
@@ -163,4 +164,11 @@ public class FeedParameters {
 		this.repeats = repeats;
 	}
 
+	public void setResults(String results) {
+		this.results = results;
+	}
+
+	public String getResults() {
+		return results;
+	}
 }

@@ -11,10 +11,12 @@ public class TestReader implements ILinkSourceReader {
 	@Override
 	public LinkSet Read() throws Exception {
 		LinkSet linkSet = new LinkSet();
-		linkSet.add(testLinkEntry("1",12));
-		linkSet.add(testLinkEntry("2",11));
-		linkSet.add(testLinkEntry("3",5));
-		linkSet.add(testLinkEntry("4",3));
+		linkSet.add(testLinkEntry("49",49));
+		linkSet.add(testLinkEntry("24",24));
+		linkSet.add(testLinkEntry("12",12));
+		linkSet.add(testLinkEntry("11",11));
+		linkSet.add(testLinkEntry("5",5));
+		linkSet.add(testLinkEntry("3",3));
 		return linkSet;
 	}
 
