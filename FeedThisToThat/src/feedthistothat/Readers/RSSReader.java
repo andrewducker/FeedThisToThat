@@ -48,7 +48,7 @@ public class RSSReader implements ILinkSourceReader {
 			
 			if(commentDetail != null)
 			{
-				if (!commentDetail.getValue().trim().equals("<p></p>")) {
+				if (!commentDetail.getValue().trim().equals("<p></p>") && !commentDetail.getValue().trim().equals("")) {
 					 linkEntry.Description = commentDetail.getValue();
 				}
 			}
