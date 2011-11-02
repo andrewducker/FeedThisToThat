@@ -18,30 +18,16 @@ public class Feeder {
 	public static String Feed(FeedParameters feedParameters) throws Exception{
 		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		LinkSet links = reader.Read();
-		
+
 		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());
-	
+
+		String result;
 		if (links.size() == 0) {
-			return "No entries found";
+			result = "No entries found";
+		} else {
+
+			result = postLinks(feedParameters, links);
 		}
-		
-		Collections.sort(links);
-		
-		String output = LinkPostFormatter.Format(links);
-		
-		String header = LinkPostFormatter.FormatTitle(feedParameters.getPostingTime());
-	
-		IWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getPostPrivately(),feedParameters.getDestination());
-		
-		List<String> tagsForPosting;
-		if (feedParameters.getPostWithTags()) {
-			tagsForPosting = links.getTagNames();
-		}
-		else{
-			tagsForPosting = new Vector<String>();
-		}
-		String result = writer.Write(output, header, tagsForPosting);
-		
 		feedParameters.setResults(result);
 		feedParameters.setLastUpdated(feedParameters.getPostingTime().getTime());
 
@@ -53,7 +39,29 @@ public class Feeder {
 
 		return result;
 	}
-	
+
+	private static String postLinks(FeedParameters feedParameters, LinkSet links)
+			throws Exception {
+		String result;
+		Collections.sort(links);
+
+		String output = LinkPostFormatter.Format(links);
+
+		String header = LinkPostFormatter.FormatTitle(feedParameters.getPostingTime());
+
+		IWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getPostPrivately(),feedParameters.getDestination());
+
+		List<String> tagsForPosting;
+		if (feedParameters.getPostWithTags()) {
+			tagsForPosting = links.getTagNames();
+		}
+		else{
+			tagsForPosting = new Vector<String>();
+		}
+		result = writer.Write(output, header, tagsForPosting);
+		return result;
+	}
+
 	private static LinkSet FilterLinksByDate(LinkSet links, Calendar startTime, Calendar endTime) {
 		LinkSet filteredList = new LinkSet();
 		for (LinkEntry linkEntry : links) {
