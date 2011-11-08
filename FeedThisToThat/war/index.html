@@ -81,6 +81,8 @@ clear: left;
   <h1>Feed <B>This</B> To <B>That</B></h1>
 #if($userdata.loggedIn)
 You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A><BR><BR>
+#if($userdata.feedParameters.postingTime)Last post at: $date.format($userdata.feedParameters.postingTime) (UTC)#end
+#if($userdata.feedParameters.results)<BR><BR>Result was: $userdata.feedParameters.results#end
 #else
 <A href="$userdata.loginURL">Log in to retrieve your preferences or set up scheduled posting.</A>
 #end
