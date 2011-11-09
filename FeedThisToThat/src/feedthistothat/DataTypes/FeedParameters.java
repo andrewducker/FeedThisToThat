@@ -1,11 +1,14 @@
 package feedthistothat.DataTypes;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
 import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.FileUtils;
 
 import feedthistothat.Readers.ReaderFactory.Reader;
 import feedthistothat.Writers.WriterFactory.Writer;
@@ -29,11 +32,14 @@ public class FeedParameters {
 	private int daysToInclude = 1;
 	private boolean repeats = false;
 	private String results;
+	private String postTemplate = "";
 
 	@SuppressWarnings("deprecation")
-	public FeedParameters(){
+	public FeedParameters() throws Exception{
 		postingTime = new Date();
 		postingTime.setHours(11);
+		File templateFile = new File("PostTemplate.vm");
+		postTemplate = FileUtils.readFileToString(templateFile); 
 	}
 
 	public FeedParameters(HttpServletRequest req) throws Exception{
@@ -49,6 +55,7 @@ public class FeedParameters {
 		destinationUserName = req.getParameter("DestinationUserName");
 		destination = Writer.valueOf(req.getParameter("OutputTo"));
 		destinationPassword = PasswordEncrypt.Encrypt(destination, req.getParameter("DestinationPassword"));
+		postTemplate = req.getParameter("PostTemplate");
 		postPrivately = req.getParameter("PostPrivately") != null;
 		postWithTags = req.getParameter("PostWithTags") != null;
 		forcePostInPast = req.getParameter("ForcePostInPast") != null;
@@ -170,5 +177,13 @@ public class FeedParameters {
 
 	public String getResults() {
 		return results;
+	}
+
+	public void setPostTemplate(String postTemplate) {
+		this.postTemplate = postTemplate;
+	}
+
+	public String getPostTemplate() {
+		return postTemplate;
 	}
 }

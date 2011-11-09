@@ -1,8 +1,12 @@
 package feedthistothat.DataTypes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+
+import org.apache.commons.io.FileUtils;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
@@ -40,5 +44,17 @@ public class DataAccessObject {
 	
 	public static FeedParameters GetFeedParameters(long key){
 		return objectify.get(FeedParameters.class,key);
+	}
+	
+	public static String getDefaultPostTemplate(){
+		File templateFile = new File("PostTemplate.vm");
+		String toReturn = "";
+		try {
+			toReturn = FileUtils.readFileToString(templateFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return toReturn;
 	}
 }

@@ -12,16 +12,18 @@ import feedthistothat.DataTypes.LinkEntry;
 
 public class LinkPostFormatter {
 
-	public static String Format(List<LinkEntry> links) throws Exception
+	public static String Format(List<LinkEntry> links, String postTemplate) throws Exception
 	{
 		Velocity.init();
 		VelocityContext context = new VelocityContext();
 		
 		context.put("links",links);
-		Template template = Velocity.getTemplate("PostTemplate.vm");
+		Template template = new Template();
+		
 		
 		StringWriter writer = new StringWriter();
-		template.merge(context, writer);
+		//template.merge(context, writer);
+		Velocity.evaluate(context, writer, "mystring",postTemplate);
 		return writer.toString();
 	}
 	

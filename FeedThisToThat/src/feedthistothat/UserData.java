@@ -22,7 +22,12 @@ public class UserData {
 			loginURL = userService.createLoginURL("/");
 		}
 		if (feedParameters == null) {
-			feedParameters = new FeedParameters();
+			try {
+				feedParameters = new FeedParameters();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

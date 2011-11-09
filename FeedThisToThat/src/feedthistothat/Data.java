@@ -3,6 +3,7 @@ package feedthistothat;
 import java.util.TimeZone;
 import java.util.TreeSet;
 
+import feedthistothat.DataTypes.DataAccessObject;
 import feedthistothat.Readers.ReaderFactory.Reader;
 import feedthistothat.Writers.WriterFactory.Writer;
 
@@ -25,6 +26,10 @@ public class Data {
 	
 	public Reader[] getReaders(){
 		return Reader.values();
+	}
+	
+	public String getDefaultPostTemplate(){
+		return DataAccessObject.getDefaultPostTemplate();
 	}
 
 

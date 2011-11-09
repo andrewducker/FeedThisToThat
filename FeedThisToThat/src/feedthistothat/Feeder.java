@@ -45,7 +45,7 @@ public class Feeder {
 		String result;
 		Collections.sort(links);
 
-		String output = LinkPostFormatter.Format(links);
+		String output = LinkPostFormatter.Format(links,feedParameters.getPostTemplate());
 
 		String header = LinkPostFormatter.FormatTitle(feedParameters.getPostingTime());
 

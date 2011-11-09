@@ -11,6 +11,12 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Post links to your journal</title>
+<script language="javascript" type="text/javascript">
+function ResetTemplates()
+{
+document.DeliciousPoster.PostTemplate.value = '$esc.javascript($data.DefaultPostTemplate)';
+}
+</script>
     <style type="text/css">
 body
 {
@@ -48,23 +54,20 @@ float: left;
 width: 12em;
 margin-bottom: 5px;
 }
-input.textarea{
-width: 250px;
-height: 150px;
-}
+textarea
 {
-float:right;
+width: 25em;
+height: 10em;
 }
 
 .boxes{
 width: 1em;
 }
 
-#submitbutton{
+#submitbutton,#resettemplates{
 position:relative;
 float:right;
 margin-right:2em;
-width: 6em;
 background-color:f0fcff;
 border:1px #467E8D solid;
 border-radius:5px;
@@ -79,6 +82,7 @@ clear: left;
 
   <body>
   <h1>Feed <B>This</B> To <B>That</B></h1>
+
 #if($userdata.loggedIn)
 You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A><BR><BR>
 #if($userdata.feedParameters.postingTime)Last post at: $date.format($userdata.feedParameters.postingTime) (UTC)#end
@@ -163,11 +167,20 @@ Scheduled Posting
 #if($userdata.IsAdmin)
 <label for="ForcePostInPast">Force Post to Posting Queue?: </label>
 <input type=checkbox  id="ForcePostInPast" name="ForcePostInPast"#if($userdata.feedParameters.ForcePostInPast)checked=yes#end>#end
-</fieldset>
 #end
+</fieldset>
+<fieldset name="TemplateFields">
+<legend>Templates</legend>
+<label for="PostTemplate">Post template: </label>
+<textarea name="PostTemplate" id="PostTemplate" wrap=off>
+$userdata.feedParameters.PostTemplate
+</textarea>
+<input type="button" id="resettemplates" value="Reset Templates" onClick="ResetTemplates();" />
+</fieldset>
 <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
 </form>
 <BR><BR>
+<BR><BR> 
 <fieldset>
 <legend>Instructions</legend>
     This app takes links from a source (Delicious and Pinboard for now, more if people request them) and posts them to a journal (Livejournal and Dreamwidth for now, more to come).

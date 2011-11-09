@@ -1,5 +1,8 @@
 <ul class="links">
 #foreach($link in $links)
-<li class="link"><A href="$link.URL">$link.Title</A>#if($link.Description)<BR><span class="link-description">$link.Description</span>#end <BR><span class="link-tags">(tags:#foreach($tag in $link.Tags) <A href="$tag.TagURL">$tag.Tag</A>#end )</span></li>
+<li class="link"><A href="$link.URL">$link.Title</A>
+#if($link.Description)<BR><span class="link-description">$link.Description</span>#end 
+<BR><span class="link-tags">(tags:#foreach($tag in $link.Tags) <A href="$tag.TagURL">$tag.Tag</A>#end )</span>
+</li>
 #end
 </ul>
