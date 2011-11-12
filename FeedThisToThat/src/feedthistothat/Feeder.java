@@ -47,7 +47,7 @@ public class Feeder {
 
 		String output = LinkPostFormatter.Format(links,feedParameters.getPostTemplate());
 
-		String header = LinkPostFormatter.FormatTitle(feedParameters.getPostingTime());
+		String header = LinkPostFormatter.FormatTitle(feedParameters.getPostingTime(), feedParameters.getSubjectTemplate());
 
 		IWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getPostPrivately(),feedParameters.getDestination());
 

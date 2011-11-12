@@ -23,7 +23,7 @@ public class DataAccessObject {
 		return  objectify.query(FeedParameters.class).filter("emailAddress", email).get();
 	}
 	static public void updateFeedParameters(FeedParameters feedParameters){
-		if (feedParameters == null || feedParameters.getEmailAddress() == null) {
+		if (feedParameters == null || feedParameters.getEmailAddress() == null || feedParameters.getEmailAddress().trim()=="") {
 			return;
 		}
 		FeedParameters existingFeedParameter = objectify.query(FeedParameters.class).filter("emailAddress", feedParameters.getEmailAddress()).get();
@@ -56,5 +56,8 @@ public class DataAccessObject {
 			e.printStackTrace();
 		} 
 		return toReturn;
+	}
+	public static String getDefaultSubjectTemplate(){
+		return "Interesting Links for $date.format(\"dd-MM-yyyy\",$postingTime)";
 	}
 }

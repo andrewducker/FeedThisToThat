@@ -31,6 +31,10 @@ public class Data {
 	public String getDefaultPostTemplate(){
 		return DataAccessObject.getDefaultPostTemplate();
 	}
+	
+	public String getDefaultSubjectTemplate(){
+		return DataAccessObject.getDefaultSubjectTemplate();
+	}
 
 
 }

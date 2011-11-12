@@ -4,9 +4,9 @@ import java.io.StringWriter;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.tools.generic.DateTool;
 
 import feedthistothat.DataTypes.LinkEntry;
 
@@ -18,17 +18,19 @@ public class LinkPostFormatter {
 		VelocityContext context = new VelocityContext();
 		
 		context.put("links",links);
-		Template template = new Template();
-		
-		
 		StringWriter writer = new StringWriter();
-		//template.merge(context, writer);
 		Velocity.evaluate(context, writer, "mystring",postTemplate);
 		return writer.toString();
 	}
 	
-	public static String FormatTitle(Calendar endTime)
+	public static String FormatTitle(Calendar endTime, String subjectTemplate) throws Exception
 	{
-		return "Interesting Links for "+endTime.get(Calendar.DAY_OF_MONTH)+"-"+(endTime.get(Calendar.MONTH)+1)+"-"+endTime.get(Calendar.YEAR);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		DateTool dateTool = new DateTool();
+		context.put("date", dateTool);
+		context.put("postingTime",endTime);
+		Velocity.evaluate(context, writer, "", subjectTemplate);
+		return writer.toString();
 	}
 }

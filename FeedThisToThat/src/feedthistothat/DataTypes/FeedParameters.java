@@ -32,14 +32,15 @@ public class FeedParameters {
 	private int daysToInclude = 1;
 	private boolean repeats = false;
 	private String results;
-	private String postTemplate = "";
+	private String postTemplate;
+	private String subjectTemplate;
 
 	@SuppressWarnings("deprecation")
-	public FeedParameters() throws Exception{
+	public FeedParameters() {
 		postingTime = new Date();
 		postingTime.setHours(11);
-		File templateFile = new File("PostTemplate.vm");
-		postTemplate = FileUtils.readFileToString(templateFile); 
+		postTemplate = DataAccessObject.getDefaultPostTemplate();
+		setSubjectTemplate(DataAccessObject.getDefaultSubjectTemplate());
 	}
 
 	public FeedParameters(HttpServletRequest req) throws Exception{
@@ -56,6 +57,7 @@ public class FeedParameters {
 		destination = Writer.valueOf(req.getParameter("OutputTo"));
 		destinationPassword = PasswordEncrypt.Encrypt(destination, req.getParameter("DestinationPassword"));
 		postTemplate = req.getParameter("PostTemplate");
+		subjectTemplate = req.getParameter("SubjectTemplate");
 		postPrivately = req.getParameter("PostPrivately") != null;
 		postWithTags = req.getParameter("PostWithTags") != null;
 		forcePostInPast = req.getParameter("ForcePostInPast") != null;
@@ -185,5 +187,13 @@ public class FeedParameters {
 
 	public String getPostTemplate() {
 		return postTemplate;
+	}
+
+	public void setSubjectTemplate(String subjectTemplate) {
+		this.subjectTemplate = subjectTemplate;
+	}
+
+	public String getSubjectTemplate() {
+		return subjectTemplate;
 	}
 }

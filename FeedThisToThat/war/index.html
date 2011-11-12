@@ -15,6 +15,7 @@
 function ResetTemplates()
 {
 document.DeliciousPoster.PostTemplate.value = '$esc.javascript($data.DefaultPostTemplate)';
+document.DeliciousPoster.SubjectTemplate.value = '$esc.javascript($data.DefaultSubjectTemplate)';
 }
 </script>
     <style type="text/css">
@@ -96,19 +97,19 @@ You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click her
 <legend>
 Source
 </legend>
-<label for="Source">Get links from</label>
+<label for="Source">Get links from:</label>
 <select name='Source' id='Source' />
 #foreach($reader in $data.Readers)<option#if($reader == $userdata.feedParameters.source) selected#end>$reader</option>#end
 </select>
 <BR>
-<label for="SourceUserName">User name</label>
-<input type='text' name='SourceUserName' id='SourceUserName' value='andrewducker' size='30' maxlength='50'/>
+<label for="SourceUserName">User name:</label>
+<input type='text' name='SourceUserName' id='SourceUserName' value='$userdata.feedParameters.sourceUserName' size='30' maxlength='50'/>
 </fieldset>
 <fieldset>
 <legend>
 Posting Period
 </legend>
-<label for='Day'>Period ending on</label>
+<label for='Day'>Period ending on:</label>
 <select name='Day' id='Day' />
 #foreach($i in [1..31])<option#if($i == $date.getDay($userdata.feedParameters.PostingTime.Time)) selected#end>$i</option>#end
 </select>
@@ -140,7 +141,7 @@ Blog
 </select>
 <BR>
 <label for="DestinationUserName">User name: </label>
-<input type='text' name='DestinationUserName' id='DestinationUserName' value='andrewducker' size='30' maxlength='50'/>
+<input type='text' name='DestinationUserName' id='DestinationUserName' value='$userdata.feedParameters.destinationUserName' size='30' maxlength='50'/>
 <BR>
 <label for="DestinationPassword">Password: </label>
 <input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/>
@@ -172,9 +173,9 @@ Scheduled Posting
 <fieldset name="TemplateFields">
 <legend>Templates</legend>
 <label for="PostTemplate">Post template: </label>
-<textarea name="PostTemplate" id="PostTemplate" wrap=off>
-$userdata.feedParameters.PostTemplate
-</textarea>
+<textarea name="PostTemplate" id="PostTemplate" wrap=off>$userdata.feedParameters.PostTemplate</textarea>
+<label for="SubjectTemplate">Subject template: </label>
+<input type="text" name="SubjectTemplate" id="SubjectTemplate" size=50 value="$esc.html($userdata.feedParameters.SubjectTemplate)">
 <input type="button" id="resettemplates" value="Reset Templates" onClick="ResetTemplates();" />
 </fieldset>
 <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
