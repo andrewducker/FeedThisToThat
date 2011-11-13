@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 import feedthistothat.DataTypes.FeedParameters;
 import feedthistothat.DataTypes.LinkEntry;
@@ -19,6 +20,10 @@ public class Feeder {
 		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		LinkSet links = reader.Read();
 
+		Logger log = Logger.getLogger(Feeder.class.getName());
+		log.info("Feeding: " + feedParameters.getSource().toString()+ "." + feedParameters.getSourceUserName() + " -> " +feedParameters.getDestination().toString() +"."+  feedParameters.getDestinationUserName());
+
+		
 		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());
 
 		String result;

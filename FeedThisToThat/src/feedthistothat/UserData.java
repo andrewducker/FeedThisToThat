@@ -1,5 +1,7 @@
 package feedthistothat;
 
+import java.util.logging.Logger;
+
 import javax.persistence.Transient;
 
 import com.google.appengine.api.users.*;
@@ -13,6 +15,8 @@ public class UserData {
         User user = userService.getCurrentUser();
 		
 		if (user != null) {
+			Logger log = Logger.getLogger(this.getClass().getName());
+			log.info("Logged in " + user.getEmail());
 			userName = user.getNickname();
 			logoutURL = userService.createLogoutURL("/");
 			loggedIn = true;
