@@ -1,5 +1,6 @@
 package feedthistothat;
 
+import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.persistence.Transient;
@@ -21,7 +22,9 @@ public class UserData {
 			logoutURL = userService.createLogoutURL("/");
 			loggedIn = true;
 			isAdmin = userService.isUserAdmin();
-			feedParameters = DataAccessObject.ReadFeedParameters(user.getEmail());
+			String temp = user.getEmail();
+			feedParameters = DataAccessObject.ReadFeedParameters(temp);
+			feeds = DataAccessObject.ReadFeedList(temp);
 		} else {
 			loginURL = userService.createLoginURL("/");
 		}
@@ -29,7 +32,6 @@ public class UserData {
 			try {
 				feedParameters = new FeedParameters();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -41,6 +43,7 @@ public class UserData {
 	private String logoutURL;
 	private boolean isAdmin = false;
 	@Transient private FeedParameters feedParameters;
+	@Transient private Vector<Long> feeds;
 
 	public Boolean getLoggedIn() {
 		return loggedIn;
@@ -58,6 +61,9 @@ public class UserData {
 		return feedParameters;
 	}
 	
+	public FeedParameters getFeedParameters(String feedID){
+		return DataAccessObject.GetFeedParameters(Long.parseLong(feedID));
+	}
 	public String getLogoutURL() {
 		return logoutURL;
 	}
@@ -66,5 +72,8 @@ public class UserData {
 		return isAdmin;
 	}
 
+	public Vector<Long> getFeeds(){
+		return feeds;
+	}
 	
 }

@@ -12,4 +12,9 @@ public class ConsoleWriter implements IWriter {
 		return null;
 	}
 
+	@Override
+	public String EncryptPassword(String password) throws Exception {
+		return null;
+	}
+
 }

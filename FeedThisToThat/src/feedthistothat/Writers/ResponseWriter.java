@@ -22,5 +22,9 @@ public class ResponseWriter implements IWriter {
 		writer.println("\n");
 		return "Done!";
 	}
+	@Override
+	public String EncryptPassword(String password) throws Exception {
+		return null;
+	}
 
 }

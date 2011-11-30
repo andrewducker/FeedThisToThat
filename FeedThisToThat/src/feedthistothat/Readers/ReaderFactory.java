@@ -1,6 +1,5 @@
 package feedthistothat.Readers;
 
-
 public class ReaderFactory {
 	public enum Reader {
 		Pinboard, Delicious, Test

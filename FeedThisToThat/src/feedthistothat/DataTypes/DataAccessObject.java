@@ -52,12 +52,19 @@ public class DataAccessObject {
 		try {
 			toReturn = FileUtils.readFileToString(templateFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return toReturn;
 	}
 	public static String getDefaultSubjectTemplate(){
 		return "Interesting Links for $date.format(\"dd-MM-yyyy\",$postingTime)";
+	}
+	public static Vector<Long> ReadFeedList(String email) {
+		Vector<Long> outputList = new Vector<Long>();
+		Query<FeedParameters> query = objectify.query(FeedParameters.class).filter("emailAddress", email);
+		for (Key<FeedParameters> feedKey : query.fetchKeys()) {
+			outputList.add(feedKey.getId());
+		}
+		return outputList;
 	}
 }

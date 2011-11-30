@@ -3,11 +3,9 @@ package feedthistothat.DataTypes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import feedthistothat.Writers.WriterFactory.Writer;
-
 public class PasswordEncrypt {
 
-	static String Encrypt(Writer writer, String password) throws Exception{
+	static String Encrypt(String password) throws Exception{
 		return MD5Hex(password);
 	}
 	public static String MD5Hex(String s) throws NoSuchAlgorithmException{

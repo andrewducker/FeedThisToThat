@@ -1,0 +1,26 @@
+<html>
+  <head>
+  </head>
+  <body>
+  
+  #if($params.OutputTo)
+  #set($feedParameter = $userdata.getFeedParameters($params.OutputTo))
+  $feedParameter.SourceUserName
+  #else
+  No option selected
+  #end
+  #foreach
+    <table>
+      <tr>
+        <td>$
+  <form name='DeliciousPoster' method='POST' action='./showfeeds.html' > 
+  <select name='OutputTo' id='OutputTo' />
+#foreach($feed in $userdata.Feeds)<option>$feed</option>#end
+</select>
+
+  <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
+  </form>
+  
+  
+  </body>
+</html>

@@ -87,4 +87,8 @@ public class LJWriter implements IWriter {
 	    }
 	    return "<A href=" + result.get("url")+ ">Link posted</A>";
 	}
+	
+	public String EncryptPassword(String password) throws Exception{
+		return PasswordEncrypt.MD5Hex(password);
+	}
 }

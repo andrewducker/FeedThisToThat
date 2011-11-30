@@ -7,7 +7,8 @@ public class WriterFactory {
 	public enum Writer{
 		Dreamwidth,
 		Livejournal,
-		Test
+		WordPress,
+		Test;
 	}
 
 	private static IWriter testWriter;
@@ -15,7 +16,7 @@ public class WriterFactory {
 		WriterFactory.testWriter = testWriter;
 	}
 	
-	public static IWriter GetWriter(TimeZone timeZone, String destinationUserName,String destinationPassword, Boolean postPrivately, Writer writer) throws Exception{
+	public static IWriter GetWriter(TimeZone timeZone, String destinationUserName,String destinationPassword, Boolean postPrivately, String url, Writer writer) throws Exception{
 
 		switch (writer) {
 		case Dreamwidth:
@@ -24,6 +25,8 @@ public class WriterFactory {
 			return new LJWriter(destinationUserName, destinationPassword, timeZone, postPrivately);
 		case Test:
 			return testWriter;
+		case WordPress:
+			return new MetaWeblogAPI(destinationUserName, destinationPassword, url, "NotUsedByWordPress");
 		default:
 			throw new Exception("No such destination - " + writer);
 		}
