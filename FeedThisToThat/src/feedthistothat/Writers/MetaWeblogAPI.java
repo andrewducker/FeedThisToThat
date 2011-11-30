@@ -19,15 +19,16 @@ public class MetaWeblogAPI implements IWriter {
 		this.userName = userName;
 		this.password = password;
 		if(url != null){
-			URL baseURL = new URL("http","","");
-			URL myURL = new URL(baseURL,url);
-			if (myURL.getFile() == "") {
-				myURL = new URL(myURL,"xmlrpc.php");
+			if(!url.substring(0,4).equals("http")){
+				url = "http://"+url;
 			}
-			this.url = myURL.toString();
-			if (!this.url.contains("/xmlrpc.php")) {
-				this.url = this.url+"/xmlrpc.php";
+			if(!url.contains("xmlrpc.php")){
+				if(!url.substring(url.length()-1).equals("/")){
+					url += "/";
+				}
+				url = url+"xmlrpc.php";
 			}
+			this.url = url;
 		}
 		this.blogID = blogID;
 	}
