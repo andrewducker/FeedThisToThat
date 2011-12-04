@@ -1,0 +1,5 @@
+This application is designed to pull information from a variety of sources and repost them to a variety of destinations.  
+
+At the moment it pulls from Delicious and Pinboard, and posts to Dreamwidth, Livejournal and Wordpress.
+
+It makes use of numerous JARs provided by the Apache Foundation, and a few provided by other third parties under the Apache License. 
