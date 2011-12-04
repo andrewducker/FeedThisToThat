@@ -39,7 +39,6 @@ public class MetaWeblogAPI implements IWriter {
 	throws Exception {
 		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL(url));
-		config.setConnectionTimeout(20);
 		XmlRpcClient client = new XmlRpcClient();
 		client.setConfig(config);
 
