@@ -31,6 +31,7 @@ public class FeedToLJServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		FeedParameters parameters = null;
+		WriterFactory.setTestWriter(new ResponseWriter(resp.getWriter()));
 		try {
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
@@ -41,8 +42,6 @@ public class FeedToLJServlet extends HttpServlet {
 			}
 			if (parameters.getPostingTime().before(Calendar.getInstance()) && !parameters.getForcePostInPast()) {
 				resp.setContentType("text/HTML");
-				WriterFactory
-						.setTestWriter(new ResponseWriter(resp.getWriter()));
 				String output = Feeder.Feed(parameters);
 				resp.getWriter().println(output);
 			} else {

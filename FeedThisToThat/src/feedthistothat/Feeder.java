@@ -17,12 +17,13 @@ import feedthistothat.Writers.WriterFactory;
 public class Feeder {
 
 	public static String Feed(FeedParameters feedParameters) throws Exception{
+		Logger log = Logger.getLogger(Feeder.class.getName());
+		log.warning("Feeding: " + feedParameters.getSource().toString()+ "." + feedParameters.getSourceUserName() + " -> " +feedParameters.getDestination().toString() +"."+  feedParameters.getDestinationUserName());
+
 		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		LinkSet links = reader.Read();
 
-		Logger log = Logger.getLogger(Feeder.class.getName());
-		log.info("Feeding: " + feedParameters.getSource().toString()+ "." + feedParameters.getSourceUserName() + " -> " +feedParameters.getDestination().toString() +"."+  feedParameters.getDestinationUserName());
-
+		
 		
 		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());
 

@@ -31,7 +31,7 @@ public class PostSingleFeedServlet extends HttpServlet {
 			PrintWriter pw = new PrintWriter(sw);
 			e.printStackTrace(pw);
 			log.severe("Uncaught Exception: " + sw.toString());
-			parameters.setResults("An error occurred.  Please let andrew@ducker.org.uk know");
+			parameters.setResults("An error occurred.  Please let andrew@ducker.org.uk know" + e.getMessage());
 		}
 		DataAccessObject.updateFeedParameters(parameters);
 	}

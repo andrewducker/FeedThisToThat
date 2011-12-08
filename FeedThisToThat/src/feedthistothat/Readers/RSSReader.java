@@ -65,6 +65,9 @@ public class RSSReader implements ILinkSourceReader {
 			
 			links.add(linkEntry);
 		}
+		if (links.isEmpty()) {
+			throw new Exception("No links found at that address - user does not exist?");
+		}
 		return links;
 	}
 
