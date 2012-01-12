@@ -185,7 +185,7 @@ Blog
 <input type=checkbox name="PostWithTags" id="PostWithTags"#if($userdata.feedParameters.PostWithTags) checked=yes#end>
 </span>
 </fieldset>
-#if($userdata.IsAdmin)
+#if($userdata.loggedIn)
 <fieldset>
 <legend>
 Scheduled Posting

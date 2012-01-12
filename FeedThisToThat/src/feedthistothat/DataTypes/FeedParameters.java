@@ -7,11 +7,14 @@ import java.util.TimeZone;
 import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 
+import com.googlecode.objectify.annotation.Cached;
+
 import feedthistothat.Readers.ReaderFactory.Reader;
 import feedthistothat.Writers.IWriter;
 import feedthistothat.Writers.WriterFactory;
 import feedthistothat.Writers.WriterFactory.Writer;
 
+@Cached
 public class FeedParameters {
 	@Id private Long id;
 	private String sourceUserName = "";
