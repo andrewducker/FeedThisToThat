@@ -35,6 +35,10 @@ public class Data {
 	public String getDefaultSubjectTemplate(){
 		return DataAccessObject.getDefaultSubjectTemplate();
 	}
+	
+	public String getDefaultTags(){
+		return DataAccessObject.getDefaultTags();
+	}
 
 
 }

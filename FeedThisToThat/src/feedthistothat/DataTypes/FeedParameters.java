@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 
 import com.googlecode.objectify.annotation.Cached;
+import com.googlecode.objectify.annotation.Indexed;
+import com.googlecode.objectify.annotation.Unindexed;
 
 import feedthistothat.Readers.ReaderFactory.Reader;
 import feedthistothat.Writers.IWriter;
@@ -15,28 +17,30 @@ import feedthistothat.Writers.WriterFactory;
 import feedthistothat.Writers.WriterFactory.Writer;
 
 @Cached
+@Unindexed
 public class FeedParameters {
-	@Id private Long id;
+	@Id @Indexed private Long id;
 	private String sourceUserName = "";
 	private Reader source  = Reader.Test;
-	private Date postingTime;
+	@Indexed private Date postingTime;
 	private TimeZone timeZone = TimeZone.getTimeZone("Europe/London");
 	private String destinationUserName = "";
 	private String destinationPassword = "";
 	private String url = "";
 	private Writer destination = Writer.Test;
-	private String emailAddress = "";
+	@Indexed private String emailAddress = "";
 	private boolean postPrivately = true;
 	private Date lastUpdated;
 	private boolean postWithTags = false;
 	@SuppressWarnings("unused")
-	private boolean inPostingQueue = false;
+	@Indexed private boolean inPostingQueue = false;
 	private boolean forcePostInPast = false;
 	private int daysToInclude = 1;
 	private boolean repeats = false;
 	private String results;
 	private String postTemplate;
 	private String subjectTemplate;
+	private String defaultTags;
 
 	@SuppressWarnings("deprecation")
 	public FeedParameters() {
@@ -44,6 +48,7 @@ public class FeedParameters {
 		postingTime.setHours(11);
 		postTemplate = DataAccessObject.getDefaultPostTemplate();
 		subjectTemplate =DataAccessObject.getDefaultSubjectTemplate();
+		defaultTags = DataAccessObject.getDefaultTags();
 	}
 
 	public FeedParameters(HttpServletRequest req) throws Exception{
@@ -63,6 +68,7 @@ public class FeedParameters {
 		destinationPassword = writer.EncryptPassword(req.getParameter("DestinationPassword"));
 		postTemplate = req.getParameter("PostTemplate");
 		subjectTemplate = req.getParameter("SubjectTemplate");
+		defaultTags = req.getParameter("DefaultTags");
 		postPrivately = req.getParameter("PostPrivately") != null;
 		postWithTags = req.getParameter("PostWithTags") != null;
 		forcePostInPast = req.getParameter("ForcePostInPast") != null;
@@ -206,5 +212,8 @@ public class FeedParameters {
 	public String getUrl() {
 		return url;
 	}
-
+	
+	public String getDefaultTags(){
+		return defaultTags;
+	}
 }

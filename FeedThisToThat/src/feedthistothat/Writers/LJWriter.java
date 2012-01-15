@@ -63,9 +63,13 @@ public class LJWriter implements IWriter {
 	    postParams.put("min",calendar.get(Calendar.MINUTE));
 	    
 	    HashMap<String,Object> options = new HashMap<String,Object>();
-	    String tagsToUse = "links";
+	    String tagsToUse = "";
 	    for (String tag : tags) {
-			tagsToUse += "," +tag; 
+	    	if(tagsToUse.length()>0)
+	    	{
+	    		tagsToUse+=",";
+	    	}
+			tagsToUse +=tag; 
 		}
 	    options.put("taglist", tagsToUse);
 	    options.put("opt_preformatted", true);

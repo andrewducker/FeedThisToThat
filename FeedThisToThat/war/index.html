@@ -36,6 +36,7 @@ function ResetTemplates()
 {
 document.DeliciousPoster.PostTemplate.value = '$esc.javascript($data.DefaultPostTemplate)';
 document.DeliciousPoster.SubjectTemplate.value = '$esc.javascript($data.DefaultSubjectTemplate)';
+document.DeliciousPoster.DefaultTags.value = '$esc.javascript($data.DefaultTags)';
 }
 
 </script>
@@ -204,6 +205,8 @@ Scheduled Posting
 <textarea name="PostTemplate" id="PostTemplate" wrap=off>$userdata.feedParameters.PostTemplate</textarea>
 <label for="SubjectTemplate">Subject template: </label>
 <input type="text" name="SubjectTemplate" id="SubjectTemplate" size=50 value="$esc.html($userdata.feedParameters.SubjectTemplate)">
+<label for="DefaultTags">Default tags<BR>(comma separated): </label>
+<input type="text" name="DefaultTags" id="DefaultTags" size=50 value="$esc.html($userdata.feedParameters.DefaultTags)">
 <input type="button" id="resettemplates" value="Reset Templates"  />
 </fieldset>
 <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />

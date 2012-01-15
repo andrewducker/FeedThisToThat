@@ -23,8 +23,6 @@ public class Feeder {
 		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		LinkSet links = reader.Read();
 
-		
-		
 		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());
 
 		String result;
@@ -60,6 +58,10 @@ public class Feeder {
 		List<String> tagsForPosting;
 		if (feedParameters.getPostWithTags()) {
 			tagsForPosting = links.getTagNames();
+			String[] defaultTags = feedParameters.getDefaultTags().split(",");
+			for (int i = 0; i < defaultTags.length; i++) {
+				tagsForPosting.add(defaultTags[i]);
+			}
 		}
 		else{
 			tagsForPosting = new Vector<String>();

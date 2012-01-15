@@ -67,4 +67,7 @@ public class DataAccessObject {
 		}
 		return outputList;
 	}
+	public static String getDefaultTags() {
+		return "links";
+	}
 }
