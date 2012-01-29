@@ -5,6 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Post links to your journal</title>
 <script src="jquery-1.7.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <script language="javascript" type="text/javascript">
 $(document).ready(Loaded);
  
@@ -13,10 +14,10 @@ function Loaded()
     $("#resettemplates").click(ResetTemplates);
     $("#OutputTo").change(ShowCorrectSettings);
     ShowCorrectSettings();
- }
+}
  
- function ShowCorrectSettings()
- {
+function ShowCorrectSettings()
+{
  	var outputTo = $("#OutputTo").val();
  	if(outputTo=="WordPress" || outputTo=="Test"){
    		$("#URLSpan").show();
@@ -30,7 +31,7 @@ function Loaded()
  		$("#ljOptions").hide();
  	}
  
- }
+}
  
 function ResetTemplates()
 {
@@ -40,71 +41,10 @@ document.DeliciousPoster.DefaultTags.value = '$esc.javascript($data.DefaultTags)
 }
 
 </script>
-    <style type="text/css">
-body
-{
-background-color:white;
-}
-label{
-float: left;
-width: 9em;
-text-align: right;
-padding-right:1em;
-}
-legend
-{
-font-weight: bolder;
-font-size: larger;
-}
-form
-{
-/*border:solid 1px #7fe5ff;*/
-width: 35em;
-/*background-color:f1fcff;*/
-}
-fieldset
-{
-background-color: #f0fcff;
-margin-bottom: 2em;
-width: 32em;
-border:solid 1px;
-border-color: #467E8D;
-border-radius:10px;
-}
-
-input.text, textarea{
-float: left;
-width: 12em;
-margin-bottom: 5px;
-}
-textarea
-{
-width: 25em;
-height: 10em;
-}
-
-.boxes{
-width: 1em;
-}
-
-#submitbutton,#resettemplates{
-position:relative;
-float:right;
-margin-right:2em;
-background-color: #f0fcff;
-border:1px #467E8D solid;
-border-radius:5px;
-font-weight:bold;
-}
-
-br{
-clear: left;
-}</style>
-    
   </head>
 
-  <body>
-  <h1>Feed <B>This</B> To <B>That</B></h1>
+<body>
+<h1>Feed <B>This</B> To <B>That</B></h1>
 
 #if($userdata.loggedIn)
 You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A><BR><BR>
