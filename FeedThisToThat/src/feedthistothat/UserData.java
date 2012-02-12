@@ -1,5 +1,6 @@
 package feedthistothat;
 
+import java.util.Collection;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -23,8 +24,9 @@ public class UserData {
 			loggedIn = true;
 			isAdmin = userService.isUserAdmin();
 			String temp = user.getEmail();
-			FeedParameters[] a = null;
-			feedParameters = DataAccessObject.ReadFeedParameters(temp).values().toArray(a)[0];
+			FeedParameters[] a = new FeedParameters[0];
+			Collection<FeedParameters> feedList = DataAccessObject.ReadFeedParameters(temp).values();
+			feedParameters = feedList.toArray(a)[0];
 			feeds = DataAccessObject.ReadFeedList(temp);
 		} else {
 			loginURL = userService.createLoginURL("/");
