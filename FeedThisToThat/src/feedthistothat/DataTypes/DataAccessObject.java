@@ -3,8 +3,10 @@ package feedthistothat.DataTypes;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.io.FileUtils;
 
@@ -19,9 +21,15 @@ public class DataAccessObject {
 		objectify = ObjectifyService.begin();
 	}
 	static Objectify objectify; 
-	static public FeedParameters ReadFeedParameters(String email){
-		return  objectify.query(FeedParameters.class).filter("emailAddress", email).get();
+	static public ConcurrentHashMap<Long, FeedParameters> ReadFeedParameters(String email){
+		Query<FeedParameters> query = objectify.query(FeedParameters.class).filter("emailAddress", email);
+		ConcurrentHashMap<Long, FeedParameters> feedsToReturn = new ConcurrentHashMap<Long, FeedParameters>();
+		for (FeedParameters feedParameters : query) {
+			feedsToReturn.put(feedParameters.getId(), feedParameters);
+		}
+		return  feedsToReturn;
 	}
+	
 	static public void updateFeedParameters(FeedParameters feedParameters){
 		if (feedParameters == null || feedParameters.getEmailAddress() == null || feedParameters.getEmailAddress().trim()=="") {
 			return;

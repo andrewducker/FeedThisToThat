@@ -23,7 +23,8 @@ public class UserData {
 			loggedIn = true;
 			isAdmin = userService.isUserAdmin();
 			String temp = user.getEmail();
-			feedParameters = DataAccessObject.ReadFeedParameters(temp);
+			FeedParameters[] a = null;
+			feedParameters = DataAccessObject.ReadFeedParameters(temp).values().toArray(a)[0];
 			feeds = DataAccessObject.ReadFeedList(temp);
 		} else {
 			loginURL = userService.createLoginURL("/");
