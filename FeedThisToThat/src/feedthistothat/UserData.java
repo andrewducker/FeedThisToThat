@@ -1,12 +1,14 @@
 package feedthistothat;
 
-import java.util.Collection;
 import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.persistence.Transient;
 
-import com.google.appengine.api.users.*;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import feedthistothat.DataTypes.DataAccessObject;
 import feedthistothat.DataTypes.FeedParameters;
 
@@ -24,10 +26,8 @@ public class UserData {
 			loggedIn = true;
 			isAdmin = userService.isUserAdmin();
 			String temp = user.getEmail();
-			FeedParameters[] a = new FeedParameters[0];
-			Collection<FeedParameters> feedList = DataAccessObject.ReadFeedParameters(temp).values();
-			feedParameters = feedList.toArray(a)[0];
 			feeds = DataAccessObject.ReadFeedList(temp);
+			feedParameters = DataAccessObject.GetFeedParameters(feeds.get(0));
 		} else {
 			loginURL = userService.createLoginURL("/");
 		}

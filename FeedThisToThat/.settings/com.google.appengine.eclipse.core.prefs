@@ -1,9 +1,9 @@
-#Sun Feb 12 22:08:03 GMT 2012
+#Mon Feb 13 14:22:08 GMT 2012
 eclipse.preferences.version=1
 filesCopiedToWebInfLib=appengine-api-1.0-sdk-1.6.1.jar|appengine-api-labs-1.6.1.jar|appengine-jsr107cache-1.6.1.jar|jsr107cache-1.1.jar|google_sql.jar
 gaeDatanucleusEnabled=false
 gaeDeployDialogSettings=
-gaeHrdEnabled=true
+gaeHrdEnabled=false
 gaeIsEclipseDefaultInstPath=true
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
