@@ -1,6 +1,8 @@
 package feedthistothat;
 
+import java.util.Collection;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import javax.persistence.Transient;
@@ -26,6 +28,7 @@ public class UserData {
 			loggedIn = true;
 			isAdmin = userService.isUserAdmin();
 			String temp = user.getEmail();
+			feedList = DataAccessObject.readFeedParameters(user.getEmail());
 			feeds = DataAccessObject.ReadFeedList(temp);
 			feedParameters = DataAccessObject.GetFeedParameters(feeds.get(0));
 		} else {
@@ -47,6 +50,7 @@ public class UserData {
 	private boolean isAdmin = false;
 	@Transient private FeedParameters feedParameters;
 	@Transient private Vector<Long> feeds;
+	@Transient private ConcurrentHashMap<Long, FeedParameters> feedList;
 
 	public Boolean getLoggedIn() {
 		return loggedIn;
@@ -79,4 +83,7 @@ public class UserData {
 		return feeds;
 	}
 	
+	public Collection<FeedParameters> getFeedList(){
+		return feedList.values();
+	}
 }

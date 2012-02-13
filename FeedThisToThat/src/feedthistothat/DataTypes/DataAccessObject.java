@@ -20,7 +20,7 @@ public class DataAccessObject {
 		objectify = ObjectifyService.begin();
 	}
 	static Objectify objectify; 
-	static public ConcurrentHashMap<Long, FeedParameters> ReadFeedParameters(String email){
+	static public ConcurrentHashMap<Long, FeedParameters> readFeedParameters(String email){
 		Query<FeedParameters> query = objectify.query(FeedParameters.class).filter("emailAddress", email);
 		ConcurrentHashMap<Long, FeedParameters> feedsToReturn = new ConcurrentHashMap<Long, FeedParameters>();
 		for (FeedParameters feedParameters : query) {
