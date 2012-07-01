@@ -6,7 +6,7 @@ import feedthistothat.DataTypes.LinkEntry;
 import feedthistothat.DataTypes.LinkSet;
 import feedthistothat.DataTypes.LinkTag;
 
-public class TestReader implements ILinkSourceReader {
+public class TestReader extends BaseReader {
 
 	@Override
 	public LinkSet Read() throws Exception {

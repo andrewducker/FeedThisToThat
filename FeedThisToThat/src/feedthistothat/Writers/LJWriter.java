@@ -6,20 +6,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.persistence.Id;
+
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
+import com.googlecode.objectify.annotation.Cached;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Indexed;
+import com.googlecode.objectify.annotation.Unindexed;
+
 import feedthistothat.DataTypes.PasswordEncrypt;
 
 
-public class LJWriter implements IWriter {
+@Unindexed
+@Cached
+@Entity
+public class LJWriter extends BaseWriter {
 
+	@Id @Indexed private Long id;
+	@Indexed private String email;
 	private String userName;
 	private String password;
 	private TimeZone timeZone;
 	private Boolean postPrivately;
-	public LJWriter(String userName, String password, TimeZone timeZone, Boolean postPrivately){
+	public LJWriter(String userName, String password, TimeZone timeZone, Boolean postPrivately, String email){
+		this.email = email;
 		this.userName = userName;
 		this.password = password;
 		this.timeZone = timeZone;
@@ -94,5 +107,13 @@ public class LJWriter implements IWriter {
 	
 	public String EncryptPassword(String password) throws Exception{
 		return PasswordEncrypt.MD5Hex(password);
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
 	}
 }

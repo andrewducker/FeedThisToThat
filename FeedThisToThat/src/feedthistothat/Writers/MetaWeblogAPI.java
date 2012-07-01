@@ -8,7 +8,7 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.jasypt.util.text.BasicTextEncryptor;
 
-public class MetaWeblogAPI implements IWriter {
+public class MetaWeblogAPI extends BaseWriter {
 
 	private String userName;
 	private String password;

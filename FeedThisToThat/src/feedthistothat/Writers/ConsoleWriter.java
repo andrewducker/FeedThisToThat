@@ -2,7 +2,7 @@ package feedthistothat.Writers;
 
 import java.util.List;
 
-public class ConsoleWriter implements IWriter {
+public class ConsoleWriter extends BaseWriter {
 
 	@Override
 	public String Write(String contents, String header, List<String> tags)

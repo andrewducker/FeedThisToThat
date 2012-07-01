@@ -1,11 +1,11 @@
 package feedthistothat.Readers;
 
 public class ReaderFactory {
-	public enum Reader {
+	public enum ReaderType {
 		Pinboard, Delicious, Test
 	}
 
-	public static ILinkSourceReader GetReader(Reader reader, String userName)
+	public static BaseReader GetReader(ReaderType reader, String userName)
 			throws Exception {
 		switch (reader) {
 		case Delicious:

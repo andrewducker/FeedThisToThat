@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Post links to your journal</title>
+<script src="jquery-1.7.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script language="javascript" type="text/javascript">
+$(document).ready(Loaded);
+ 
+function Loaded()
+{
+    $("#resettemplates").click(ResetTemplates);
+    $("#OutputTo").change(ShowCorrectSettings);
+    ShowCorrectSettings();
+}
+ 
+function ShowCorrectSettings()
+{
+ 	var outputTo = $("#OutputTo").val();
+ 	if(outputTo=="WordPress" || outputTo=="Test"){
+   		$("#URLSpan").show();
+ 	}else{
+ 	$("#URLSpan").hide();
+ 	}
+ 
+ 	if(outputTo=="Livejournal" || outputTo=="Dreamwidth" || outputTo=="Test"){
+ 		$("#ljOptions").show();
+ 	}else{
+ 		$("#ljOptions").hide();
+ 	}
+ 
+}
+ 
+function ResetTemplates()
+{
+document.DeliciousPoster.PostTemplate.value = '$esc.javascript($data.DefaultPostTemplate)';
+document.DeliciousPoster.SubjectTemplate.value = '$esc.javascript($data.DefaultSubjectTemplate)';
+document.DeliciousPoster.DefaultTags.value = '$esc.javascript($data.DefaultTags)';
+}
+
+</script>
+  </head>
+
+<body>
+<h1>Feed <B>This</B> To <B>That</B></h1>
+
+#if($userdata.loggedIn)
+You are logged in as $userdata.UserName. <A href="$userdata.logoutURL">Click here to log out.</A><BR><BR>
+#if($userdata.feedParameters.postingTime)Last post at: $date.format($userdata.feedParameters.postingTime) (UTC)#end
+#if($userdata.feedParameters.results)<BR><BR>Result was: $userdata.feedParameters.results#end
+#else
+<A href="$userdata.loginURL">Log in to retrieve your preferences or set up scheduled posting.</A>
+#end
+<BR><BR>
+<form name='DeliciousPoster' method='POST' action='./feedthistothat' > 
+<fieldset>
+<legend>
+Source
+</legend>
+<label for="Source">Get links from:</label>
+<select name='Source' id='Source' />
+#foreach($reader in $data.Readers)<option#if($reader == $userdata.feedParameters.source) selected#end>$reader</option>#end
+</select>
+<BR>
+<label for="SourceUserName">User name:</label>
+<input type='text' name='SourceUserName' id='SourceUserName' value='$userdata.feedParameters.sourceUserName' size='30' maxlength='50'/>
+</fieldset>
+<fieldset>
+<legend>
+Posting Period
+</legend>
+<label for='Day'>Period ending on:</label>
+<select name='Day' id='Day' />
+#foreach($i in [1..31])<option#if($i == $date.getDay($userdata.feedParameters.PostingTime.Time)) selected#end>$i</option>#end
+</select>
+<select name='Month' id='Month' />
+#foreach($i in [1..12])<option#if($i == $date.getMonth($userdata.feedParameters.PostingTime)+1) selected#end>$i</option>#end
+</select>
+<select name='Year' id='Year' />
+#foreach($i in [2010..2030])<option#if($i == $date.getYear($userdata.feedParameters.PostingTime.Time)) selected#end>$i</option>#end
+</select>
+at
+<select name='TimeOfDay' id='TimeOfDay' />
+#foreach($i in [0..23])<option#if($i == $userdata.feedParameters.PostingHour) selected#end>$i</option>#end
+</select>
+ O'Clock (UTC)
+<BR>
+<label for="DaysToInclude">Period starting: </label>
+<select name='DaysToInclude' id='DaysToInclude' />
+#foreach($i in [1..7])<option#if($i == $userdata.feedParameters.DaysToInclude) selected#end>$i</option>#end
+</select>
+day(s) earlier.
+</fieldset>
+<fieldset>
+<legend>
+Blog
+</legend>
+<label for="OutputTo">Blog type: </label>
+<select name='OutputTo' id='OutputTo' />
+#foreach($writer in $data.Writers)<option#if($writer == $userdata.feedParameters.Destination) selected#end>$writer</option>#end
+</select>
+<span id="URLSpan">
+<BR>
+<label id="URLLabel" for="URL">Blog URL: </label>
+<input type='text' value='$userdata.feedParameters.url' name='URL' id='URL' size='30' maxlength='150'/>
+</span>
+<BR>
+<label for="DestinationUserName">User name: </label>
+<input type='text' name='DestinationUserName' id='DestinationUserName' value='$userdata.feedParameters.destinationUserName' size='30' maxlength='50'/>
+<BR>
+<label for="DestinationPassword">Password: </label>
+<input type='password' name='DestinationPassword' id='DestinationPassword' size='30' maxlength='50'/>
+<span id="ljOptions">
+<BR>
+<label for="TimeZone">Time zone: </label>
+<select name='TimeZone' id='TimeZone' />
+#foreach($zone in $data.TimeZones)<option#if($zone == $userdata.feedParameters.TimeZone.ID) selected#end>$zone</option>#end
+</select>
+<BR>
+<label for="PostPrivately">Post privately?: </label>
+<input type=checkbox name="PostPrivately" id="PostPrivately"#if($userdata.feedParameters.PostPrivately) checked=yes#end>
+<BR>
+<label for="PostWithTags">Tag with links?: </label>
+<input type=checkbox name="PostWithTags" id="PostWithTags"#if($userdata.feedParameters.PostWithTags) checked=yes#end>
+</span>
+</fieldset>
+#if($userdata.loggedIn)
+<fieldset>
+<legend>
+Scheduled Posting
+</legend>
+<label for="Repeats">Post repeatedly?: </label>
+<input type=checkbox name="Repeats" id="Repeats" #if($userdata.feedParameters.Repeats) checked=yes#end>
+<BR>
+#if($userdata.IsAdmin)
+<label for="ForcePostInPast">Force Post to Posting Queue?: </label>
+<input type=checkbox  id="ForcePostInPast" name="ForcePostInPast"#if($userdata.feedParameters.ForcePostInPast)checked=yes#end>#end
+#end
+</fieldset>
+<fieldset name="TemplateFields">
+<legend>Templates</legend>
+<label for="PostTemplate">Post template: </label>
+<textarea name="PostTemplate" id="PostTemplate" wrap=off>$userdata.feedParameters.PostTemplate</textarea>
+<label for="SubjectTemplate">Subject template: </label>
+<input type="text" name="SubjectTemplate" id="SubjectTemplate" size=50 value="$esc.html($userdata.feedParameters.SubjectTemplate)">
+<label for="DefaultTags">Default tags<BR>(comma separated): </label>
+<input type="text" name="DefaultTags" id="DefaultTags" size=50 value="$esc.html($userdata.feedParameters.DefaultTags)">
+<input type="button" id="resettemplates" value="Reset Templates"  />
+</fieldset>
+<input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
+</form>
+<BR><BR>
+<BR><BR> 
+<fieldset>
+<legend>Instructions</legend>
+    This app takes links from a source (Delicious and Pinboard for now, more if people request them) and posts them to a journal (Livejournal, Dreamwidth and WordPress for now, more to come).
+    <p>Enter your details to choose where to get links from, the period to collect them from, and where to post them to.</p>
+    <p>Links are limited by what the source makes available - the last 30 links for Delicious, the last 50 for Pinboard.</p>
+    <p>Logged in users can schedule repeated postings, save their settings and set up postings to occur in the future.</p>
+</fieldset>
+<BR>
+<fieldset>
+<legend>Setting it up</legend>
+    <p>The "Test" Source generates random links from the last 24 hours.</p>
+    <p>The "Test" Blog reroutes output to the screen.</p>
+    <p>Play with these first to see some sample output, then change the Source to be your actual links (while leaving the Blog as "Test") and make sure it looks right.</p>
+    <p>Then try a post to your blog - set the "Private" flag if you're using LJ/DW so that other people don't see your test post.</p>
+    <p>And then, once that works (and you have your password right), do it with the private flag turned off to deo an actual post.</p>
+    <p>Once you're happy with it you can turn on repeated posts.</p>
+</fieldset>
+
+<fieldset>
+<legend>Notes</legend>
+    If you have problems please email <A href="mailto:andrew@ducker.org.uk">andrew@ducker.org.uk</A>.
+    You can log defects and the like over at <A href="https://github.com/andrewducker/FeedThisToThat/issues">the GitHub repository</A>.
+    <p>The site looks nicest in Firefox and Chrome.  Tested against IE9, where it looks fine except for the fieldsets not having rounded corners.</p>
+</fieldset>
+
+</body>
+</html>

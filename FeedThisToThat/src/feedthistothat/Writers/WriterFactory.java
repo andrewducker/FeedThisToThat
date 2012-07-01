@@ -11,18 +11,18 @@ public class WriterFactory {
 		Test;
 	}
 
-	private static IWriter testWriter;
-	public static void setTestWriter(IWriter testWriter){
+	private static BaseWriter testWriter;
+	public static void setTestWriter(BaseWriter testWriter){
 		WriterFactory.testWriter = testWriter;
 	}
 	
-	public static IWriter GetWriter(TimeZone timeZone, String destinationUserName,String destinationPassword, Boolean postPrivately, String url, Writer writer) throws Exception{
+	public static BaseWriter GetWriter(TimeZone timeZone, String destinationUserName,String destinationPassword, Boolean postPrivately, String url, Writer writer, String email) throws Exception{
 
 		switch (writer) {
 		case Dreamwidth:
-			return new DWWriter(destinationUserName, destinationPassword, timeZone, postPrivately);
+			return new DWWriter(destinationUserName, destinationPassword, timeZone, postPrivately, email);
 		case Livejournal:
-			return new LJWriter(destinationUserName, destinationPassword, timeZone, postPrivately);
+			return new LJWriter(destinationUserName, destinationPassword, timeZone, postPrivately, email);
 		case Test:
 			return testWriter;
 		case WordPress:

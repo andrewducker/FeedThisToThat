@@ -1,11 +1,15 @@
 package feedthistothat.Readers;
 
+import com.googlecode.objectify.annotation.Subclass;
 
-public class PinboardReader extends RSSReader implements ILinkSourceReader {
+@Subclass
+public class PinboardReader extends BaseRSSReader{
 
+	@SuppressWarnings("unused")
+	private PinboardReader(){}
+	
 	String userID;
 	public PinboardReader(String userID) {
-		super("http://feeds.pinboard.in/rss/u:"+userID);
 		splitTags = true;
 		this.userID = userID;
 	}
@@ -15,4 +19,8 @@ public class PinboardReader extends RSSReader implements ILinkSourceReader {
 		return "http://pinboard.in/u:"+userID+"/t:"+tag;
 	}
 
+	@Override
+	String getFeedURL() {
+		return "http://feeds.pinboard.in/rss/u:"+userID;
+	}
 }

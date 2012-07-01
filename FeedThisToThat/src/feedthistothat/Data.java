@@ -3,8 +3,8 @@ package feedthistothat;
 import java.util.TimeZone;
 import java.util.TreeSet;
 
-import feedthistothat.DataTypes.DataAccessObject;
-import feedthistothat.Readers.ReaderFactory.Reader;
+import feedthistothat.DataTypes.Defaults;
+import feedthistothat.Readers.ReaderFactory.ReaderType;
 import feedthistothat.Writers.WriterFactory.Writer;
 
 public class Data {
@@ -24,20 +24,20 @@ public class Data {
 		return Writer.values();
 	}
 	
-	public Reader[] getReaders(){
-		return Reader.values();
+	public ReaderType[] getReaders(){
+		return ReaderType.values();
 	}
 	
 	public String getDefaultPostTemplate(){
-		return DataAccessObject.getDefaultPostTemplate();
+		return Defaults.getDefaultPostTemplate();
 	}
 	
 	public String getDefaultSubjectTemplate(){
-		return DataAccessObject.getDefaultSubjectTemplate();
+		return Defaults.getDefaultSubjectTemplate();
 	}
 	
 	public String getDefaultTags(){
-		return DataAccessObject.getDefaultTags();
+		return Defaults.getDefaultTags();
 	}
 
 

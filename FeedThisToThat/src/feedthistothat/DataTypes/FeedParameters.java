@@ -11,8 +11,8 @@ import com.googlecode.objectify.annotation.Cached;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
 
-import feedthistothat.Readers.ReaderFactory.Reader;
-import feedthistothat.Writers.IWriter;
+import feedthistothat.Readers.ReaderFactory.ReaderType;
+import feedthistothat.Writers.BaseWriter;
 import feedthistothat.Writers.WriterFactory;
 import feedthistothat.Writers.WriterFactory.Writer;
 
@@ -21,7 +21,7 @@ import feedthistothat.Writers.WriterFactory.Writer;
 public class FeedParameters {
 	@Id @Indexed private Long id;
 	private String sourceUserName = "";
-	private Reader source  = Reader.Test;
+	private ReaderType source  = ReaderType.Test;
 	@Indexed private Date postingTime;
 	private TimeZone timeZone = TimeZone.getTimeZone("Europe/London");
 	private String destinationUserName = "";
@@ -46,14 +46,14 @@ public class FeedParameters {
 	public FeedParameters() {
 		postingTime = new Date();
 		postingTime.setHours(11);
-		postTemplate = DataAccessObject.getDefaultPostTemplate();
-		subjectTemplate =DataAccessObject.getDefaultSubjectTemplate();
-		defaultTags = DataAccessObject.getDefaultTags();
+		postTemplate = Defaults.getDefaultPostTemplate();
+		subjectTemplate =Defaults.getDefaultSubjectTemplate();
+		defaultTags = Defaults.getDefaultTags();
 	}
 
 	public FeedParameters(HttpServletRequest req) throws Exception{
 		sourceUserName = req.getParameter("SourceUserName");
-		source = Reader.valueOf(req.getParameter("Source"));
+		source = ReaderType.valueOf(req.getParameter("Source"));
 		postingTime = getPostingTime(req);
 		timeZone = TimeZone.getTimeZone(req.getParameter("TimeZone"));
 		Calendar yesterday = Calendar.getInstance();
@@ -63,7 +63,7 @@ public class FeedParameters {
 		lastUpdated = yesterday.getTime();
 		destinationUserName = req.getParameter("DestinationUserName");
 		destination = Writer.valueOf(req.getParameter("OutputTo"));
-		IWriter writer = WriterFactory.GetWriter(null, null, null, null, null, destination);
+		BaseWriter writer = WriterFactory.GetWriter(null, null, null, null, null, destination, emailAddress);
 		
 		destinationPassword = writer.EncryptPassword(req.getParameter("DestinationPassword"));
 		postTemplate = req.getParameter("PostTemplate");
@@ -103,7 +103,7 @@ public class FeedParameters {
 	public String getSourceUserName() {
 		return sourceUserName;
 	}
-	public Reader getSource() {
+	public ReaderType getSource() {
 		return source;
 	}
 	public void setPostingTime(Date postingTime) {

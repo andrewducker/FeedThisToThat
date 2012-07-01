@@ -12,7 +12,9 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import feedthistothat.DataTypes.DataAccessObject;
+import feedthistothat.DataTypes.FeedInstruction;
 import feedthistothat.DataTypes.FeedParameters;
+import feedthistothat.Readers.BaseReader;
 
 public class UserData {
 
@@ -28,15 +30,15 @@ public class UserData {
 			loggedIn = true;
 			isAdmin = userService.isUserAdmin();
 			String temp = user.getEmail();
-			feedList = DataAccessObject.readFeedParameters(user.getEmail());
-			feeds = DataAccessObject.ReadFeedList(temp);
-			feedParameters = DataAccessObject.GetFeedParameters(feeds.get(0));
+			Vector<BaseReader> readers =DataAccessObject.ReadReaders(temp); 
+			setReaders(readers);
+			feedInstructions = DataAccessObject.getFeedInstructions(user.getEmail());
 		} else {
 			loginURL = userService.createLoginURL("/");
 		}
-		if (feedParameters == null) {
+		if (feedInstructions == null) {
 			try {
-				feedParameters = new FeedParameters();
+				feedInstructions = new Vector<FeedInstruction>();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -48,8 +50,8 @@ public class UserData {
 	private String loginURL;
 	private String logoutURL;
 	private boolean isAdmin = false;
-	@Transient private FeedParameters feedParameters;
-	@Transient private Vector<Long> feeds;
+	@Transient private Vector<FeedInstruction> feedInstructions;
+	@Transient private Vector<BaseReader> readers;
 	@Transient private ConcurrentHashMap<Long, FeedParameters> feedList;
 
 	public Boolean getLoggedIn() {
@@ -64,10 +66,6 @@ public class UserData {
 		return userName;
 	}
 
-	public FeedParameters getFeedParameters(){
-		return feedParameters;
-	}
-	
 	public FeedParameters getFeedParameters(String feedID){
 		return DataAccessObject.GetFeedParameters(Long.parseLong(feedID));
 	}
@@ -79,11 +77,15 @@ public class UserData {
 		return isAdmin;
 	}
 
-	public Vector<Long> getFeeds(){
-		return feeds;
-	}
-	
 	public Collection<FeedParameters> getFeedList(){
 		return feedList.values();
+	}
+
+	public void setReaders(Vector<BaseReader> readers) {
+		this.readers = readers;
+	}
+
+	public Vector<BaseReader> getReaders() {
+		return readers;
 	}
 }

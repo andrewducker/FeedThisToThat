@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 
-public class ResponseWriter implements IWriter {
+public class ResponseWriter extends BaseWriter {
 
 	private PrintWriter writer;
 	

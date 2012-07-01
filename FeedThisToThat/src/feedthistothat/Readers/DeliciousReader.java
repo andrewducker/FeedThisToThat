@@ -1,11 +1,15 @@
 package feedthistothat.Readers;
 
+import com.googlecode.objectify.annotation.Subclass;
 
-public class DeliciousReader extends RSSReader implements ILinkSourceReader {
+@Subclass
+public class DeliciousReader extends BaseRSSReader {
 
+	@SuppressWarnings("unused")
+	private DeliciousReader(){}
+	
 	String userName;
 	public DeliciousReader(String userName){
-		super("http://feeds.delicious.com/v2/rss/"+userName+"?count=30");
 		splitTags = false;
 		this.userName = userName;
 	}
@@ -15,4 +19,8 @@ public class DeliciousReader extends RSSReader implements ILinkSourceReader {
 		return "http://delicious.com/"+userName+"/"+tag;
 	}
 
+	@Override
+	String getFeedURL() {
+		return "http://feeds.delicious.com/v2/rss/"+userName+"?count=30";
+	}
 }

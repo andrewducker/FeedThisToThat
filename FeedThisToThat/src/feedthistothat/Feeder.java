@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 import feedthistothat.DataTypes.FeedParameters;
 import feedthistothat.DataTypes.LinkEntry;
 import feedthistothat.DataTypes.LinkSet;
-import feedthistothat.Readers.ILinkSourceReader;
+import feedthistothat.Readers.BaseReader;
 import feedthistothat.Readers.ReaderFactory;
-import feedthistothat.Writers.IWriter;
+import feedthistothat.Writers.BaseWriter;
 import feedthistothat.Writers.WriterFactory;
 
 public class Feeder {
@@ -20,7 +20,7 @@ public class Feeder {
 		Logger log = Logger.getLogger(Feeder.class.getName());
 		log.warning("Feeding: " + feedParameters.getSource().toString()+ "." + feedParameters.getSourceUserName() + " -> " +feedParameters.getDestination().toString() +"."+  feedParameters.getDestinationUserName());
 
-		ILinkSourceReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
+		BaseReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
 		LinkSet links = reader.Read();
 
 		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());
@@ -53,7 +53,7 @@ public class Feeder {
 
 		String header = LinkPostFormatter.FormatTitle(feedParameters.getPostingTime(), feedParameters.getSubjectTemplate());
 
-		IWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getPostPrivately(),feedParameters.getUrl(),feedParameters.getDestination());
+		BaseWriter writer = WriterFactory.GetWriter(feedParameters.getTimeZone(),feedParameters.getDestinationUserName(),feedParameters.getDestinationPassword(),feedParameters.getPostPrivately(),feedParameters.getUrl(),feedParameters.getDestination(), feedParameters.getEmailAddress());
 
 		List<String> tagsForPosting;
 		if (feedParameters.getPostWithTags()) {
