@@ -3,9 +3,14 @@ package feedthistothat.Writers;
 import java.io.PrintWriter;
 import java.util.List;
 
+import com.googlecode.objectify.annotation.Subclass;
 
+@SuppressWarnings("unused")
+@Subclass
 public class ResponseWriter extends BaseWriter {
 
+	private ResponseWriter(){}
+	
 	private PrintWriter writer;
 	
 	public ResponseWriter(PrintWriter writer){

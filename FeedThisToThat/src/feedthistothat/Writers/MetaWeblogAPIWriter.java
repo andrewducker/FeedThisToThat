@@ -8,14 +8,19 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.jasypt.util.text.BasicTextEncryptor;
 
-public class MetaWeblogAPI extends BaseWriter {
+import com.googlecode.objectify.annotation.Subclass;
+@SuppressWarnings("unused")
+@Subclass
+public class MetaWeblogAPIWriter extends BaseWriter {
 
 	private String userName;
 	private String password;
 	private String url;
 	private String blogID;
 
-	public MetaWeblogAPI(String userName, String password, String url, String blogID) throws Exception{
+	private MetaWeblogAPIWriter(){}
+	
+	public MetaWeblogAPIWriter(String userName, String password, String url, String blogID) throws Exception{
 		this.userName = userName;
 		this.password = password;
 		if(url != null){

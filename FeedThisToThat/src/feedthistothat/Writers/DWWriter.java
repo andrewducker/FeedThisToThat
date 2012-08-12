@@ -2,11 +2,16 @@ package feedthistothat.Writers;
 
 import java.util.TimeZone;
 
+import com.googlecode.objectify.annotation.Subclass;
 
+@Subclass
 public class DWWriter  extends LJWriter {
 
-	public DWWriter(String userName, String password, TimeZone timeZone, Boolean postPrivately, String email) {
-		super(userName, password, timeZone, postPrivately, email);
+	@SuppressWarnings("unused")
+	private DWWriter(){}
+	
+	public DWWriter(String userName, String password, TimeZone timeZone, Boolean postPrivately) {
+		super(userName, password, timeZone, postPrivately);
 		this.serverURL =  "http://www.dreamwidth.org/interface/xmlrpc";
 	}
 }

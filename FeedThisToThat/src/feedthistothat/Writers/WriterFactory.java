@@ -16,19 +16,25 @@ public class WriterFactory {
 		WriterFactory.testWriter = testWriter;
 	}
 	
-	public static BaseWriter GetWriter(TimeZone timeZone, String destinationUserName,String destinationPassword, Boolean postPrivately, String url, Writer writer, String email) throws Exception{
-
+	public static BaseWriter GetWriter(TimeZone timeZone, String destinationUserName,String destinationPassword, Boolean postPrivately, String url, Writer writer, String emailAddress) throws Exception{
+		BaseWriter baseWriter;
 		switch (writer) {
 		case Dreamwidth:
-			return new DWWriter(destinationUserName, destinationPassword, timeZone, postPrivately, email);
+			baseWriter = new DWWriter(destinationUserName, destinationPassword, timeZone, postPrivately);
+			break;
 		case Livejournal:
-			return new LJWriter(destinationUserName, destinationPassword, timeZone, postPrivately, email);
+			baseWriter = new LJWriter(destinationUserName, destinationPassword, timeZone, postPrivately);
+			break;
 		case Test:
-			return testWriter;
+			baseWriter = testWriter;
+			break;
 		case WordPress:
-			return new MetaWeblogAPI(destinationUserName, destinationPassword, url, "NotUsedByWordPress");
+			baseWriter = new MetaWeblogAPIWriter(destinationUserName, destinationPassword, url, "NotUsedByWordPress");
+			break;
 		default:
 			throw new Exception("No such destination - " + writer);
 		}
+		baseWriter.setEmailAddress(emailAddress);
+		return baseWriter;
 	}
 }

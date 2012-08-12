@@ -6,15 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.persistence.Id;
-
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 import com.googlecode.objectify.annotation.Cached;
 import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Indexed;
+import com.googlecode.objectify.annotation.Subclass;
 import com.googlecode.objectify.annotation.Unindexed;
 
 import feedthistothat.DataTypes.PasswordEncrypt;
@@ -22,17 +20,17 @@ import feedthistothat.DataTypes.PasswordEncrypt;
 
 @Unindexed
 @Cached
-@Entity
+@Subclass
 public class LJWriter extends BaseWriter {
 
-	@Id @Indexed private Long id;
-	@Indexed private String email;
+	@SuppressWarnings("unused")
+	protected LJWriter(){}
+	
 	private String userName;
 	private String password;
 	private TimeZone timeZone;
 	private Boolean postPrivately;
-	public LJWriter(String userName, String password, TimeZone timeZone, Boolean postPrivately, String email){
-		this.email = email;
+	public LJWriter(String userName, String password, TimeZone timeZone, Boolean postPrivately){
 		this.userName = userName;
 		this.password = password;
 		this.timeZone = timeZone;
@@ -107,13 +105,5 @@ public class LJWriter extends BaseWriter {
 	
 	public String EncryptPassword(String password) throws Exception{
 		return PasswordEncrypt.MD5Hex(password);
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
 	}
 }

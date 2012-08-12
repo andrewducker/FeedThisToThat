@@ -8,9 +8,6 @@ import com.googlecode.objectify.annotation.Indexed;
 @Entity
 public abstract class BaseSaveable {
 
-	protected BaseSaveable(){
-	}
-	
 	@Id @Indexed private Long id;
 	
 	public void setId(Long id) {

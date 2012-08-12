@@ -20,7 +20,7 @@ public class Feeder {
 		Logger log = Logger.getLogger(Feeder.class.getName());
 		log.warning("Feeding: " + feedParameters.getSource().toString()+ "." + feedParameters.getSourceUserName() + " -> " +feedParameters.getDestination().toString() +"."+  feedParameters.getDestinationUserName());
 
-		BaseReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName());
+		BaseReader reader = ReaderFactory.GetReader(feedParameters.getSource(), feedParameters.getSourceUserName(), feedParameters.getEmailAddress());
 		LinkSet links = reader.Read();
 
 		links = FilterLinksByDate(links, feedParameters.getLastUpdated(), feedParameters.getPostingTime());

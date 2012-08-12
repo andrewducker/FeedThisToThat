@@ -5,17 +5,23 @@ public class ReaderFactory {
 		Pinboard, Delicious, Test
 	}
 
-	public static BaseReader GetReader(ReaderType reader, String userName)
+	public static BaseReader GetReader(ReaderType reader, String userName, String emailAddress)
 			throws Exception {
+		BaseReader toReturn;
 		switch (reader) {
 		case Delicious:
-			return new DeliciousReader(userName);
+			toReturn = new DeliciousReader(userName);
+			break;
 		case Pinboard:
-			return new PinboardReader(userName);
+			toReturn = new PinboardReader(userName);
+			break;
 		case Test:
-			return new TestReader();
+			toReturn = new TestReader();
+			break;
 		default:
 			throw new Exception("No such destination - " + reader.toString());
 		}
+		toReturn.setEmailAddress(emailAddress);
+		return toReturn;
 	}
 }

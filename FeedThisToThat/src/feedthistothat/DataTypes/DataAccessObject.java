@@ -5,26 +5,32 @@ import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Query;
 
-import feedthistothat.Readers.DeliciousReader;
 import feedthistothat.Readers.BaseReader;
+import feedthistothat.Readers.DeliciousReader;
 import feedthistothat.Readers.PinboardReader;
 import feedthistothat.Readers.RSSReader;
-import feedthistothat.Writers.BaseWriter;
+import feedthistothat.Writers.DWWriter;
+import feedthistothat.Writers.LJWriter;
+import feedthistothat.Writers.MetaWeblogAPIWriter;
+import feedthistothat.Writers.ResponseWriter;
 
 public class DataAccessObject {
 	static{
-		//ObjectifyService.register(FeedParameters.class);
+		ObjectifyService.register(FeedInstruction.class);
 		ObjectifyService.register(DeliciousReader.class);
 		ObjectifyService.register(PinboardReader.class);
 		ObjectifyService.register(RSSReader.class);
 		ObjectifyService.register(BaseReader.class);
 		ObjectifyService.register(BaseSaveable.class);
+		ObjectifyService.register(LJWriter.class);
+		ObjectifyService.register(DWWriter.class);
+		ObjectifyService.register(MetaWeblogAPIWriter.class);
+		ObjectifyService.register(ResponseWriter.class);
 		objectify = ObjectifyService.begin();
 	}
 	static Objectify objectify; 
@@ -57,8 +63,8 @@ public class DataAccessObject {
 		return myKey;
 	}
 	
-	static public List<BaseSaveable> loadSaveables(String email){
-		Vector<BaseSaveable> outputList = new Vector<BaseSaveable>();
+	static public Saveables loadSaveables(String email){
+		Saveables outputList = new Saveables();
 		Query<BaseSaveable> query = objectify.query(BaseSaveable.class).filter("emailAddress", email);
 		
 		for (BaseSaveable feedKey : query) {

@@ -2,6 +2,9 @@ package feedthistothat.Writers;
 
 import java.util.List;
 
+import com.googlecode.objectify.annotation.Subclass;
+
+@Subclass
 public class ConsoleWriter extends BaseWriter {
 
 	@Override
